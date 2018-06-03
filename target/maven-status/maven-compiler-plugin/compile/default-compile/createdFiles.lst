@@ -1,0 +1,4 @@
+com/db/model/Book.class
+com/db/model/User.class
+com/db/model/SearchQuery.class
+com/db/control/Test.class
