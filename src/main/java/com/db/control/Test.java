@@ -29,11 +29,24 @@ public class Test {
 	 * login
 	 * logout
 	 * sign up
+	 * editing user data
 	 * last video finished is #13 from https://www.youtube.com/watch?v=ZEz_0V8EJpM&list=PLBgMUB7xGcO31B2gBmy1igpZn6LK78-CJ&index=12
 	 * TODO
-	 * the remaining functions of the system.
-	 * edit search cause it loads the page from the beginning make it only updates the table to keep the cart.
-	 * use redirecting e.g. "redirect:/login" and divide the control into pieces.
+	 * Managers
+1. Add new books
+2. Modify existing books
+3. Place orders for books
+4. Confirm orders
+5. Promote registered customers to have managers credentials
+6. View reports on sales
+	 *	customer
+1. Manage his shopping cart. This includes the following.
+• View the items in the cart
+• View the individual and total prices of the books in the cart
+• Remove items from the cart
+2. Checkout a shopping cart
+	 * {founded but need time ?? }edit search cause it loads the page from the beginning make it only updates the table to keep the cart.
+	 * https://www.youtube.com/watch?v=LCi8RM9fADU
 	 * */
 	DriverManagerDataSource ds;
 	Connection con;

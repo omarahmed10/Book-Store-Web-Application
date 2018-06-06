@@ -22,6 +22,14 @@
 	crossorigin="anonymous">
 
 <!-- Custom styles for this template -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"
+	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+	crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8"
+	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 </head>
 
 <body>
@@ -46,6 +54,11 @@
 				var="logoutURL" /> <a class="nav-link" href="${logoutURL }">Log
 				out</a></li>
 	</ul>
+	<ul class="navbar-nav px-3">
+		<li class="nav-item text-nowrap"><spring:url value="/user/info"
+				var="account" /><a class="nav-link" href="${account }">profile</a></li>
+	</ul>
+
 	</nav>
 	<div class="container-fluid">
 		<div class="row">
@@ -166,6 +179,9 @@
 			}
 			console.log(document.getElementById(shopCart).innerHTML);
 		}
+		$(document).ready(function() {
+			$('#mytable').DataTable();
+		});
 		window.onload = addRowHandlers();
 	</script>
 

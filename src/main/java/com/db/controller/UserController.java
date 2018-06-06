@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.db.model.Book;
 import com.db.model.SearchQuery;
+import com.db.model.UserInfo;
 
 @Controller
 @RequestMapping("/user")
@@ -51,6 +52,60 @@ public class UserController {
 			e.printStackTrace();
 		}
 		return model;
+	}
+
+	@RequestMapping(value = "/info", method = RequestMethod.GET)
+	public ModelAndView editAccountGET() {
+		ModelAndView model = new ModelAndView("user/Account");
+		UserInfo user = getUserInfo();
+		model.addObject("user", user);
+		return model;
+	}
+
+	private UserInfo getUserInfo() {
+		UserInfo user = null;
+		try {
+			String username = con.getMetaData().getUserName();
+			username = username.substring(0, username.indexOf('@'));
+			System.out.println("INFO__________________" + username);
+			ResultSet rs = con.prepareStatement("select * from Users where User_Name = '" + username + "';")
+					.executeQuery();
+			if (rs.next()) {
+				user = new UserInfo();
+				user.setEmail(rs.getString(1));
+				user.setFirstname(rs.getString(4));
+				user.setLastname(rs.getString(3));
+				user.setAddress(rs.getString(5));
+				user.setPhonenumber(rs.getString(6));
+				user.setUsername(username);
+				rs = con.prepareStatement(
+						"select authentication_string from mysql.user where user = '" + username + "';").executeQuery();
+				if (rs.next())
+					user.setPassword(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public String editAccountPOST(@ModelAttribute("user") UserInfo user) {
+		try {
+			int x = con
+					.prepareStatement("update Users set User_LastName = '" + user.getLastname()
+							+ "', User_FirstName = '" + user.getFirstname() + "' , User_email = '" + user.getEmail()
+							+ "' , User_address = '" + user.getAddress() + "' , User_phoneNumber = '"
+							+ user.getPhonenumber() + "' where User_Name = '" + user.getUsername() + "';")
+					.executeUpdate();
+			System.out.println(user + " ___________UPDATED " + x);
+			con.prepareStatement("SET PASSWORD = PASSWORD('" + user.getPassword() + "');").executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/user/list";
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)

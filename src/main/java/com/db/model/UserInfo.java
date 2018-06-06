@@ -64,4 +64,10 @@ public class UserInfo {
 	public void setPhonenumber(String phoneNumber) {
 		this.phonenumber = phoneNumber;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "{ " + username + " , " + firstname + " , " + lastname + " }";
+	}
 }

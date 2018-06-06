@@ -73,8 +73,8 @@ call add_new_book(
     'Art22');
     
 call add_new_book(
-	'123470',
-    'Title7',
+	'6546545470',
+    'Title654657',
 	'2009-04-09',
     60,
 	4,

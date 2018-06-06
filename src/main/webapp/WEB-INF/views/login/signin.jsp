@@ -92,10 +92,10 @@ body {
 		</p>
 		<h1 class="h3 mb-3 font-weight-normal">new user</h1>
 		<label for="firstName" class="sr-only">first name</label> <input
-			type="text" id="firstName" name="firstName" class="form-control"
+			type="text" id="firstname" name="firstname" class="form-control"
 			placeholder="first name" required> <label for="lastName"
-			class="sr-only">last name</label> <input type="text" id="lastName"
-			name="lastName" class="form-control" placeholder="last name" required>
+			class="sr-only">last name</label> <input type="text" id="lastname"
+			name="lastname" class="form-control" placeholder="last name" required>
 		<label for="username" class="sr-only">User Name</label> <input
 			type="text" id="username" name="username" class="form-control"
 			placeholder="User Name" required autofocus> <label
@@ -108,7 +108,7 @@ body {
 			type="text" id="address" name="address" class="form-control"
 			placeholder="shipping address" required> <label
 			for="phoneNumber" class="sr-only">phone number</label> <input
-			type="text" id="phoneNumber" name="phoneNumber" class="form-control"
+			type="text" id="phonenumber" name="phonenumber" class="form-control"
 			placeholder="phone number" required>
 		<div class="checkbox mb-3"></div>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">sign

@@ -34,7 +34,6 @@ insert into Book values (
     Threshold,
     (select PID from Publisher where Publisher_name = PName),
     category);
-select 'asdf';
 END$$
 DELIMITER ;
 
@@ -213,7 +212,8 @@ DELIMITER $$
 CREATE TRIGGER Book_BEFORE_INSERT before Insert ON Book FOR EACH ROW
 BEGIN
 if not exists (select * from Category_T where new.Category = Category) then
-signal sqlstate '45000';
+SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Category not found';
 end if;
 END$$
 DELIMITER ;

@@ -4,3 +4,4 @@ com/db/controller/ManagerController.class
 com/db/model/Book.class
 com/db/model/UserInfo.class
 com/db/model/SearchQuery.class
+com/db/controller/UserController.class

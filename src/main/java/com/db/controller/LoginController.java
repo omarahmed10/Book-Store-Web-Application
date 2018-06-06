@@ -25,7 +25,7 @@ public class LoginController {
 	Connection con;
 	UserInfo admin;
 
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String init(RedirectAttributes redirectAttributes) {
 		System.out.println("INIT__________________________LOGIN________________________________________");
 		ds = new DriverManagerDataSource();
@@ -39,7 +39,7 @@ public class LoginController {
 		return "redirect:/login";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView loginGET(@ModelAttribute("errorSignIn") String errorSI,
 			@ModelAttribute("errorSignUp") String errorSU) {
 		ModelAndView model = new ModelAndView();
@@ -98,6 +98,7 @@ public class LoginController {
 	public String signOutPost(@ModelAttribute("user") UserInfo user, RedirectAttributes redirectAttributes) {
 		String response;
 		try {
+			System.out.println("SIGNUP____________________________________" + user);
 			con = ds.getConnection(admin.getUsername(), admin.getPassword());
 			Statement s;
 			s = con.createStatement();
@@ -105,17 +106,24 @@ public class LoginController {
 					"CREATE USER '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
 			s.executeQuery("GRANT SELECT ON BookStore.Book TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
 					+ user.getPassword() + "';");
+			s.executeQuery("GRANT SELECT ON BookStore.Users TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
+					+ user.getPassword() + "';");
 			s.executeQuery("GRANT Update ON BookStore.Users TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
+					+ user.getPassword() + "';");
+			s.executeQuery("GRANT SELECT ON mysql.user TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
 					+ user.getPassword() + "';");
 			s.execute("flush privileges;");
 			s.execute("insert into Users values ('" + user.getEmail() + "','" + user.getUsername() + "','"
 					+ user.getLastname() + "','" + user.getFirstname() + "','" + user.getAddress() + "','"
 					+ user.getPhonenumber() + "');");
 			con.close();
+			System.out.println("USER CREATED_____________________________________________________");
 			con = ds.getConnection(user.getUsername(), user.getPassword());
+			System.out.println("CON CREATED_______________________________________________________");
 			redirectAttributes.addFlashAttribute("con", con);
 			response = "redirect:/user";
 		} catch (SQLException e) {
+			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("errorSignIn", null);
 			redirectAttributes.addFlashAttribute("errorSignUp", "user name already exists please choose another one");
 			response = "redirect:/login";
