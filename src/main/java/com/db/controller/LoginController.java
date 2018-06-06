@@ -25,7 +25,7 @@ public class LoginController {
 	Connection con;
 	UserInfo admin;
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String init(RedirectAttributes redirectAttributes) {
 		System.out.println("INIT__________________________LOGIN________________________________________");
 		ds = new DriverManagerDataSource();

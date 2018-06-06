@@ -29,7 +29,7 @@
 	<span class="navbar-brand col-sm-3 col-md-2 mr-0">Book Store</span>
 	<div class="navbar-collapse offcanvas-collapse"
 		id="navbarsExampleDefault">
-		<form class="form-inline my-2 my-lg-0" action="/search">
+		<form class="form-inline my-2 my-lg-0" action="/user/search">
 			<select id="inputState" name="attribute"
 				class="form-control form-control-dark mr-sm-2">
 				<option selected>Title</option>

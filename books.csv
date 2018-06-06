@@ -1,0 +1,198 @@
+ISBN,Title,Publish_year,Price,Copies_number,Threshold,Category
+123,Fundamentals of Wavelets,2009-05-09,500,5,1,Geography
+124,Data Smart,2009-05-10,501,6,2,Science
+125,God Created the Integers,2009-05-11,502,7,3,Religion
+126,Superfreakonomics,2009-05-12,503,8,4,Art
+127,Orientalism,2009-05-13,504,9,5,history
+128,"Nature of Statistical Learning Theory, The",2009-05-14,505,10,6,Science
+129,Integration of the Indian States,2009-05-15,506,11,7,history
+130,"Drunkard's Walk, The",2009-05-16,507,12,8,science
+131,Image Processing & Geographyematical Morphology,2009-05-17,508,13,9,Geography
+132,How to Think Like Sherlock Holmes,2009-05-18,509,14,10,Art
+133,Data Scientists at Work,2009-05-19,510,15,11,Science
+134,Slaughterhouse Five,2009-05-20,511,16,12,Art
+135,Birth of a Theorem,2009-05-21,512,17,13,Religion
+136,Structure & Interpretation of Computer Programs,2009-05-22,513,18,14,History
+137,"Age of Wrath, The",2009-05-23,514,19,15,history
+138,"Trial, The",2009-05-24,515,20,16,Art
+139,Statistical Decision Theory',2009-05-25,516,21,17,Science
+140,Data Mining Handbook,2009-05-26,517,22,18,Science
+141,"New Machiavelli, The",2009-05-27,518,23,19,Art
+142,Physics & Religion,2009-05-28,519,24,20,science
+143,Making Software,2009-05-29,520,25,21,History
+144,"Analysis, Vol I",2009-05-30,521,26,22,Religion
+145,Machine Learning for Hackers,2009-05-31,522,27,23,Science
+146,"Signal and the Noise, The",2009-06-01,523,28,24,Science
+147,Python for Data Analysis,2009-06-02,524,29,25,Science
+148,Introduction to Algorithms,2009-06-03,525,30,26,History
+149,"Beautiful and the Damned, The",2009-06-04,526,31,27,Art
+150,"Outsider, The",2009-06-05,527,32,28,Art
+151,"Complete Sherlock Holmes, The - Vol I",2009-06-06,528,33,29,Art
+152,"Complete Sherlock Holmes, The - Vol II",2009-06-07,529,34,30,Art
+153,"Wealth of Nations, The",2009-06-08,530,35,31,Art
+154,"Pillars of the Earth, The",2009-06-09,531,36,32,Art
+155,Mein Kampf,2009-06-10,532,37,33,Art
+156,"Tao of Physics, The",2009-06-11,533,38,34,science
+157,Surely You're Joking Mr Feynman,2009-06-12,534,39,35,science
+158,"Farewell to Arms, A",2009-06-13,535,40,36,Art
+159,"Veteran, The",2009-06-14,536,41,37,Art
+160,False Impressions,2009-06-15,537,42,38,Art
+161,"Last Lecture, The",2009-06-16,538,43,39,Art
+162,Return of the Primitive,2009-06-17,539,44,40,Religion
+163,Jurassic Park,2009-06-18,540,45,41,Art
+164,"Russian Journal, A",2009-06-19,541,46,42,Art
+165,Tales of Mystery and Imagination,2009-06-20,542,47,43,Art
+166,Freakonomics,2009-06-21,543,48,44,Art
+167,"Hidden Connections, The",2009-06-22,544,49,45,science
+168,"Story of Religion, The",2009-06-23,545,50,46,Religion
+169,Asami Asami,2009-06-24,546,51,47,Art
+170,Journal of a Novel,2009-06-25,547,52,48,Art
+171,Once There Was a War,2009-06-26,548,53,49,Art
+172,"Moon is Down, The",2009-06-27,549,54,50,Art
+173,"Brethren, The",2009-06-28,550,55,51,Art
+174,In a Free State,2009-06-29,551,56,52,Art
+175,Catch 22,2009-06-30,552,57,53,Art
+176,"Complete Mastermind, The",2009-07-01,553,58,54,Art
+177,Dylan on Dylan,2009-07-02,554,59,55,Art
+178,Soft Computing & Intelligent Systems,2009-07-03,555,60,56,Science
+179,Textbook of Economic Theory,2009-07-04,556,61,57,Art
+180,Econometric Analysis,2009-07-05,557,62,58,Art
+181,Learning OpenCV,2009-07-06,558,63,59,Science
+182,Data Structures Using C & C++,2009-07-07,559,64,60,History
+183,"Computer Vision, A Modern Approach",2009-07-08,560,65,61,Science
+184,Principles of Communication Systems,2009-07-09,561,66,62,History
+185,Let Us C,2009-07-10,562,67,63,History
+186,"Amulet of Samarkand, The",2009-07-11,563,68,64,Art
+187,Crime and Punishment,2009-07-12,564,69,65,Art
+188,Angels & Demons,2009-07-13,565,70,66,Art
+189,"Argumentative Indian, The",2009-07-14,566,71,67,Art
+190,Sea of Poppies,2009-07-15,567,72,68,Art
+191,"Idea of Justice, The",2009-07-16,568,73,69,Art
+192,"Raisin in the Sun, A",2009-07-17,569,74,70,Art
+193,All the President's Men,2009-07-18,570,75,71,history
+194,"Prisoner of Birth, A",2009-07-19,571,76,72,Art
+195,Scoop!,2009-07-20,572,77,73,history
+196,Ahe Manohar Tari,2009-07-21,573,78,74,Art
+197,"Last Mughal, The",2009-07-22,574,79,75,history
+198,"Social Choice & Welfare, Vol 39 No. 1",2009-07-23,575,80,76,Art
+199,Radiowaril Bhashane & Shrutika,2009-07-24,576,81,77,Art
+200,Gun Gayin Awadi,2009-07-25,577,82,78,Art
+201,Aghal Paghal,2009-07-26,578,83,79,Art
+202,Maqta-e-Ghalib,2009-07-27,579,84,80,Art
+203,Beyond Degrees,2009-07-28,580,85,81,Art
+204,Manasa,2009-07-29,581,86,82,Art
+205,India from Midnight to Milennium,2009-07-30,582,87,83,history
+206,"World's Greatest Trials, The",2009-07-31,583,88,84,history
+207,"Great Indian Novel, The",2009-08-01,584,89,85,Art
+208,O Jerusalem!,2009-08-02,585,90,86,history
+209,"City of Joy, The",2009-08-03,586,91,87,Art
+210,Freedom at Midnight,2009-08-04,587,92,88,history
+211,"Winter of Our Discontent, The",2009-08-05,588,93,89,Art
+212,On Education,2009-08-06,589,94,90,Religion
+213,Free Will,2009-08-07,590,95,91,Religion
+214,Bookless in Baghdad,2009-08-08,591,96,92,Art
+215,"Case of the Lame Canary, The",2009-08-09,592,97,93,Art
+216,"Theory of Everything, The",2009-08-10,593,98,94,science
+217,New Markets & Other Essays,2009-08-11,594,99,95,Art
+218,Electric Universe,2009-08-12,595,100,96,science
+219,"Hunchback of Notre Dame, The",2009-08-13,596,101,97,Art
+220,Burning Bright,2009-08-14,597,102,98,Art
+221,"Age of Discontuinity, The",2009-08-15,598,103,99,Art
+222,Doctor in the Nude,2009-08-16,599,104,100,Art
+223,Down and Out in Paris & London,2009-08-17,600,105,101,Art
+224,Identity & Violence,2009-08-18,601,106,102,Religion
+225,Beyond the Three Seas,2009-08-19,602,107,103,history
+226,"World's Greatest Short Stories, The",2009-08-20,603,108,104,Art
+227,Talking Straight,2009-08-21,604,109,105,Art
+228,"Maugham's Collected Short Stories, Vol 3",2009-08-22,605,110,106,Art
+229,"Phantom of Manhattan, The",2009-08-23,606,111,107,Art
+230,Ashenden of The British Agent,2009-08-24,607,112,108,Art
+231,Zen & The Art of Motorcycle Maintenance,2009-08-25,608,113,109,Religion
+232,"Great War for Civilization, The",2009-08-26,609,114,110,history
+233,We the Living,2009-08-27,610,115,111,Art
+234,"Artist and the Geographyematician, The",2009-08-28,611,116,112,science
+235,History of Western Religion,2009-08-29,612,117,113,Religion
+236,Selected Short Stories,2009-08-30,613,118,114,Art
+237,Rationality & Freedom,2009-08-31,614,119,115,Art
+238,Clash of Civilizations and Remaking of the World Order,2009-09-01,615,120,116,history
+239,Uncommon Wisdom,2009-09-02,616,121,117,Art
+240,One,2009-09-03,617,122,118,Art
+241,Karl Marx Biography,2009-09-04,618,123,119,Art
+242,To Sir With Love,2009-09-05,619,124,120,Art
+243,Half A Life,2009-09-06,620,125,121,Art
+244,"Discovery of India, The",2009-09-07,621,126,122,history
+245,Apulki,2009-09-08,622,127,123,Art
+246,Unpopular Essays,2009-09-09,623,128,124,Religion
+247,"Deceiver, The",2009-09-10,624,129,125,Art
+248,Veil: Secret Wars of the CIA,2009-09-11,625,130,126,history
+249,Char Shabda,2009-09-12,626,131,127,Art
+250,Rosy is My Relative,2009-09-13,627,132,128,Art
+251,"Moon and Sixpence, The",2009-09-14,628,133,129,Art
+252,Political Philosophers,2009-09-15,629,134,130,Religion
+253,"Short History of the World, A",2009-09-16,630,135,131,history
+254,"Trembling of a Leaf, The",2009-09-17,631,136,132,Art
+255,Doctor on the Brain,2009-09-18,632,137,133,Art
+256,Simpsons & Their Geographyematical Secrets,2009-09-19,633,138,134,science
+257,Pattern Classification,2009-09-20,634,139,135,Science
+258,From Beirut to Jerusalem,2009-09-21,635,140,136,history
+259,"Code Book, The",2009-09-22,636,141,137,science
+260,"Age of the Warrior, The",2009-09-23,637,142,138,history
+261,Final Crisis,2009-09-24,638,143,139,comic
+274,"Life in Letters, A",2009-09-25,639,144,140,Art
+275,"Information, The",2009-09-26,640,145,141,science
+276,"Journal of Art, vol 106 No 3",2009-09-27,641,146,142,Art
+277,Elements of Information Theory,2009-09-28,642,147,143,Science
+278,Power Electronics - Rashid,2009-09-29,643,148,144,History
+279,Power Electronics - Mohan,2009-09-30,644,149,145,History
+280,Neural Networks,2009-10-01,645,150,146,Science
+281,"Grapes of Wrath, The",2009-10-02,646,151,147,Art
+282,Vyakti ani Valli,2009-10-03,647,152,148,Art
+283,Statistical Learning Theory,2009-10-04,648,153,149,Science
+284,Empire of the Mughal - The Tainted Throne,2009-10-05,649,154,150,history
+285,Empire of the Mughal - Brothers at War,2009-10-06,650,155,151,history
+286,Empire of the Mughal - Ruler of the World,2009-10-07,651,156,152,history
+287,Empire of the Mughal - The Serpent's Tooth,2009-10-08,652,157,153,history
+288,Empire of the Mughal - Raiders from the North,2009-10-09,653,158,154,history
+289,Mossad,2009-10-10,654,159,155,history
+290,Jim Corbett Omnibus,2009-10-11,655,160,156,Art
+291,20000 Leagues Under the Sea,2009-10-12,656,161,157,Art
+292,Batatyachi Chal,2009-10-13,657,162,158,Art
+293,Hafasavnuk,2009-10-14,658,163,159,Art
+294,Urlasurla,2009-10-15,659,164,160,Art
+295,Pointers in C,2009-10-16,660,165,161,History
+296,"Cathedral and the Bazaar, The",2009-10-17,661,166,162,History
+297,Design with OpAmps,2009-10-18,662,167,163,History
+298,Think Complexity,2009-10-19,663,168,164,Science
+299,"Devil's Advocate, The",2009-10-20,664,169,165,Art
+300,Ayn Rand Answers,2009-10-21,665,170,166,Religion
+301,Religion: Who Needs It,2009-10-22,666,171,167,Religion
+302,"World's Great Thinkers, The",2009-10-23,667,172,168,Religion
+303,Data Analysis with Open Source Tools,2009-10-24,668,173,169,Science
+304,Broca's Brain,2009-10-25,669,174,170,science
+305,Men of Religion,2009-10-26,670,175,171,Religion
+306,Oxford book of Modern Science Writing,2009-10-27,671,176,172,science
+307,"Justice, Judiciary and Democracy",2009-10-28,672,177,173,Religion
+308,"Arthashastra, The",2009-10-29,673,178,174,Religion
+309,We the People,2009-10-30,674,179,175,Religion
+310,We the Nation,2009-10-31,675,180,176,Religion
+311,"Courtroom Genius, The",2009-11-01,676,181,177,Art
+312,Dongri to Dubai,2009-11-02,677,182,178,Art
+313,"History of England, Foundation",2009-11-03,678,183,179,history
+314,City of Djinns,2009-11-04,679,184,180,history
+315,India's Legal System,2009-11-05,680,185,181,Art
+316,More Tears to Cry,2009-11-06,681,186,182,Art
+317,"Ropemaker, The",2009-11-07,682,187,183,Art
+318,Angels & Demons,2009-11-08,683,188,184,Art
+321,"Prince, The",2009-11-09,684,189,185,Religion
+322,Eyeless in Gaza,2009-11-10,685,190,186,Art
+323,Tales of Beedle the Bard,2009-11-11,686,191,187,Art
+324,Girl with the Dragon Tattoo,2009-11-12,687,192,188,Art
+325,Girl who kicked the Hornet's Nest,2009-11-13,688,193,189,Art
+326,Girl who played with Fire,2009-11-14,689,194,190,Art
+327,Batman Handbook,2009-11-15,690,195,191,comic
+328,Murphy's Law,2009-11-16,691,196,192,Art
+329,Structure and Randomness,2009-11-17,692,197,193,Religion
+330,Image Processing with MATLAB,2009-11-18,693,198,194,Geography
+331,Animal Farm,2009-11-19,694,199,195,Art
+332,"Idiot, The",2009-11-20,695,200,196,Art
+333,"Christmas Carol, A",2009-11-21,696,201,197,Art
