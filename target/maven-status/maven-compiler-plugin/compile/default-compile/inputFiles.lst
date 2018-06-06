@@ -1,4 +1,9 @@
 /home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/control/Test.java
+/home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/config/SercurityConfig.java
+/home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/controller/ManagerController.java
 /home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/model/SearchQuery.java
 /home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/model/Book.java
-/home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/model/User.java
+/home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/model/UserInfo.java
+/home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/controller/UserController.java
+/home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/config/SecurityInitializer.java
+/home/omar/eclipseEE-workspace/Book_Store/src/main/java/com/db/controller/LoginController.java

@@ -19,9 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.db.model.Book;
 import com.db.model.SearchQuery;
-import com.db.model.User;
+import com.db.model.UserInfo;
 
-@Controller
+//@Controller
 public class Test {
 
 	/* DONE:
@@ -37,10 +37,10 @@ public class Test {
 	 * */
 	DriverManagerDataSource ds;
 	Connection con;
-	User admin;
+	UserInfo admin;
 	
 	int i = 0;
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+//	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView LoginPageGET() throws SQLException {
 		System.out.println("ASdfasdfasdfaSDF " + i++);
 		System.out.println("ASdfasdfasdfaSDF " + i++);
@@ -48,14 +48,14 @@ public class Test {
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
 		ds.setUrl("jdbc:mysql://localhost:3306/BookStore");
 		ModelAndView model = new ModelAndView("login/signin");
-		admin = new User();
+		admin = new UserInfo();
 		admin.setUsername("root");
 		admin.setPassword("admin");
 		return model;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView LoginPagePost(@ModelAttribute("user") User user) {
+//	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ModelAndView LoginPagePost(@ModelAttribute("user") UserInfo user) {
 		ModelAndView model;
 		try {
 			System.out.println(user.getUsername());
@@ -85,8 +85,8 @@ public class Test {
 		return model;
 	}
 
-	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
-	public ModelAndView signOutPost(@ModelAttribute("user") User user) {
+//	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
+	public ModelAndView signOutPost(@ModelAttribute("user") UserInfo user) {
 		ModelAndView model;
 		try {
 			con = ds.getConnection(admin.getUsername(), admin.getPassword());
@@ -120,7 +120,7 @@ public class Test {
 		return model;
 	}
 
-	@RequestMapping(value = "/logout")
+//	@RequestMapping(value = "/logout")
 	public String logOutPOST() throws SQLException {
 		if (!con.isClosed())
 			con.close();
@@ -128,7 +128,7 @@ public class Test {
 		return "redirect:/login";
 	}
 
-	@RequestMapping(value = "/search")
+//	@RequestMapping(value = "/search")
 	public ModelAndView search(@ModelAttribute("searchQuery") SearchQuery searchQuery) throws SQLException {
 		ResultSet rs = callProcedure(con, searchQuery.getAttribute() + "_Book_Search", searchQuery.getText());
 		List<Book> books = new ArrayList<Book>();

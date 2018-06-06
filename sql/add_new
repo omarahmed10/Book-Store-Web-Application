@@ -1,0 +1,33 @@
+CREATE PROCEDURE `add_new_book` 
+(
+	ISBN int,
+    Title varchar(100),
+	Pub_year Date,
+    Price int,
+	Threshold int,
+	Copies_nums int,
+	Publisher_name varchar(45),
+	Authors varchar(255), #How to use the list.
+						  #SET @Authors = '\'auth1\',\'auth2\'....';
+						  #SET @sql = CONCAT('SELECT * FROM Author WHERE Name IN (', Authors, ')');
+						  #PREPARE stmt FROM @sql;
+						  #EXECUTE stmt;
+						  #DEALLOCATE PREPARE stmt;
+    category  ENUM('Science', 'Art', 'Religion', 'History', 'Geography')
+ )
+BEGIN
+use BookStore_Schema;
+insert ignore into Category values (
+	Title,
+    category);
+insert into Book values (
+	ISBN,
+    Pub_year,
+    Price,
+    Copies_nums,
+    Threshold,
+    (select ID from Publihser where Publisher_name = PName),
+    Title);
+
+END
+

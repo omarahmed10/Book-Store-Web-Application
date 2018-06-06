@@ -1,4 +1,6 @@
-com/db/model/Book.class
-com/db/model/User.class
-com/db/model/SearchQuery.class
+com/db/controller/LoginController.class
 com/db/control/Test.class
+com/db/controller/ManagerController.class
+com/db/model/Book.class
+com/db/model/UserInfo.class
+com/db/model/SearchQuery.class

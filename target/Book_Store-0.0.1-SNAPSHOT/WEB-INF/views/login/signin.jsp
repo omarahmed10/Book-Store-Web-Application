@@ -86,7 +86,7 @@ body {
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 			in</button>
 	</form>
-	<form class="form-signin" action="/signUp" method="post">
+	<form class="form-signin" action="/signup" method="post">
 		<p>
 			<font color="red">${signUpErrorMessage}</font>
 		</p>
