@@ -115,6 +115,7 @@
 	</div>
 
 	<script>
+		// little change ^-^
 		var BooksToBuy = new Array();
 		BooksToBuycnt = 0;
 		function addRowHandlers() {
