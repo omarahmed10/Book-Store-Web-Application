@@ -21,9 +21,9 @@ import com.db.model.UserInfo;
 @RequestMapping("/")
 public class LoginController {
 
-	DriverManagerDataSource ds;
-	Connection con;
-	UserInfo admin;
+	public static DriverManagerDataSource ds;
+	public static Connection con;
+	private UserInfo admin;
 
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String init(RedirectAttributes redirectAttributes) {

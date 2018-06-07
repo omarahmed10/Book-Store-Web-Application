@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.db.model.Book;
+import com.db.model.BookInfo;
 import com.db.model.SearchQuery;
 import com.db.model.UserInfo;
 
@@ -33,7 +33,7 @@ public class Test {
 	 * last video finished is #13 from https://www.youtube.com/watch?v=ZEz_0V8EJpM&list=PLBgMUB7xGcO31B2gBmy1igpZn6LK78-CJ&index=12
 	 * TODO
 	 * Managers
-1. Add new books
+1. Add new books {use js to ensure that copies > threshold}
 2. Modify existing books
 3. Place orders for books
 4. Confirm orders
@@ -45,7 +45,8 @@ public class Test {
 • View the individual and total prices of the books in the cart
 • Remove items from the cart
 2. Checkout a shopping cart
-	 * {founded but need time ?? }edit search cause it loads the page from the beginning make it only updates the table to keep the cart.
+	 * {founded but need time ?? }edit search cause it loads the page from the beginning
+	 *  make it only updates the table to keep the cart.
 	 * https://www.youtube.com/watch?v=LCi8RM9fADU
 	 * */
 	DriverManagerDataSource ds;
@@ -79,9 +80,9 @@ public class Test {
 			} else {
 				con = ds.getConnection(user.getUsername(), user.getPassword());
 				ResultSet rs = con.prepareStatement("select * from Book;").executeQuery();
-				List<Book> books = new ArrayList<Book>();
+				List<BookInfo> books = new ArrayList<BookInfo>();
 				while (rs.next()) {
-					books.add(new Book(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5),
+					books.add(new BookInfo(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5),
 							rs.getInt(6), rs.getString(8)));
 				}
 				System.out.println(books.toString());
@@ -118,9 +119,9 @@ public class Test {
 			con.close();
 			con = ds.getConnection(user.getUsername(), user.getPassword());
 			ResultSet rs = con.prepareStatement("select * from Book;").executeQuery();
-			List<Book> books = new ArrayList<Book>();
+			List<BookInfo> books = new ArrayList<BookInfo>();
 			while (rs.next()) {
-				books.add(new Book(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5),
+				books.add(new BookInfo(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5),
 						rs.getInt(6), rs.getString(8)));
 			}
 			model = new ModelAndView("user/BookList");
@@ -144,9 +145,9 @@ public class Test {
 //	@RequestMapping(value = "/search")
 	public ModelAndView search(@ModelAttribute("searchQuery") SearchQuery searchQuery) throws SQLException {
 		ResultSet rs = callProcedure(con, searchQuery.getAttribute() + "_Book_Search", searchQuery.getText());
-		List<Book> books = new ArrayList<Book>();
+		List<BookInfo> books = new ArrayList<BookInfo>();
 		while (rs.next()) {
-			books.add(new Book(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5),
+			books.add(new BookInfo(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5),
 					rs.getInt(6), rs.getString(8)));
 		}
 		System.out.println(books.toString());

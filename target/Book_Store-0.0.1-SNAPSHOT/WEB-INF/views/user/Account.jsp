@@ -85,7 +85,9 @@ body {
 		<div class="form-group">
 			<label for="exampleInputEmail1">User Name</label> <input type="text"
 				id="username" name="username" class="form-control"
-				value="${user.username}" readonly="readonly">
+				value="${user.username}" readonly="readonly"> <small
+				id="emailHelp" class="form-text text-muted">You can't change the user name.</small>
+
 		</div>
 		<div class="form-group">
 			<label for="exampleInputEmail1">Email address</label> <input

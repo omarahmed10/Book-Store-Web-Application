@@ -22,14 +22,15 @@
 	crossorigin="anonymous">
 
 <!-- Custom styles for this template -->
-<script src="https://code.jquery.com/jquery-3.3.1.js"
-	integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-	crossorigin="anonymous"></script>
+
 <link rel="stylesheet" type="text/css"
-	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 
 <script type="text/javascript" charset="utf8"
-	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
 </head>
 
 <body>

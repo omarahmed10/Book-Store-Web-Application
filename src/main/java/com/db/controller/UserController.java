@@ -8,21 +8,29 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.db.model.Book;
+
+import com.db.dao.BookDao;
+import com.db.model.BookInfo;
 import com.db.model.SearchQuery;
 import com.db.model.UserInfo;
+import com.db.service.BookService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
 	Connection con;
+
+	@Autowired
+	BookService bookService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String init(@ModelAttribute("con") Connection con, RedirectAttributes redirectAttributes) {
@@ -38,19 +46,8 @@ public class UserController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listBooks() {
 		ModelAndView model = new ModelAndView();
-		ResultSet rs;
-		try {
-			rs = con.prepareStatement("select * from Book;").executeQuery();
-			List<Book> books = new ArrayList<Book>();
-			while (rs.next()) {
-				books.add(new Book(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5),
-						rs.getInt(6), rs.getString(8)));
-			}
-			model.setViewName("user/BookList");
-			model.addObject("bookList", books);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		model.setViewName("user/BookList");
+		model.addObject("bookList", bookService.listBooks());
 		return model;
 	}
 
@@ -111,9 +108,9 @@ public class UserController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView search(@ModelAttribute("searchQuery") SearchQuery searchQuery) throws SQLException {
 		ResultSet rs = callProcedure(con, searchQuery.getAttribute() + "_Book_Search", searchQuery.getText());
-		List<Book> books = new ArrayList<Book>();
+		List<BookInfo> books = new ArrayList<BookInfo>();
 		while (rs.next()) {
-			books.add(new Book(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5),
+			books.add(new BookInfo(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getInt(4), rs.getInt(5),
 					rs.getInt(6), rs.getString(8)));
 		}
 		System.out.println(books.toString());
