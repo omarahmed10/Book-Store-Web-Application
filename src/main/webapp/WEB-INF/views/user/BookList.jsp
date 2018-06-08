@@ -181,10 +181,30 @@
 			}
 			console.log(document.getElementById(shopCart).innerHTML);
 		}
-		$(document).ready(function() {
-			$('#mytable').DataTable();
-		});
-		window.onload = addRowHandlers();
+	$(document).ready(function() {
+     		$('#mytable').DataTable();
+
+	      // handle request
+	      $('#shopCart').on('click', function(){
+
+		    $.ajax({
+		      type: 'POST',
+		      url: '/BookStory'  // write our url
+		      data:{
+			  arr : BooksToBuy
+			},
+		      dataType: json,
+		      success: function(){
+			  console.log("success");
+			},
+		      error: function(){
+			console.log("error");
+		      }
+		    });
+	      });
+
+	 });
+	window.onload = addRowHandlers();
 	</script>
 
 
