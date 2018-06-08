@@ -67,15 +67,15 @@ body {
 </head>
 
 <body class="text-center">
-	<form class="form-signin" action="/manager/add" method="post">
+	<form class="form-signin" action="/manager/update" method="post">
 		<p>
 			<font color="red">${addingBookErrorMsg}</font>
 		</p>
 		<h1 class="h3 mb-3 font-weight-normal">Book Informations</h1>
 		<div class="form-group">
 			<label for="exampleInputEmail1">ISBN</label> <input type="text"
-				id="isbn" name="isbn" class="form-control" readonly="readonly" value="${book.isbn }>
-			<small id="emailHelp" class="form-text text-muted"">You can't
+				id="isbn" name="isbn" class="form-control" readonly="readonly" value="${book.isbn }">
+			<small id="emailHelp" class="form-text text-muted">You can't
 				change the book isbn.</small>
 		</div>
 		<div class="form-group">
@@ -111,7 +111,7 @@ body {
 		</div>
 		<div class="form-group">
 			<label for="exampleFormControlSelect1">Category</label> <select
-				class="form-control" id="category" name="category" ">
+				class="form-control" id="category" name="category">
 				<option>Science</option>
 				<option>Art</option>
 				<option>Religion</option>

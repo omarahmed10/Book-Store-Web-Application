@@ -43,6 +43,7 @@ public class SqlQueryDaoImp implements SqlQueryDao {
 
 			// the boolean returned , true if the query returns result set
 			result.success = callStatment.execute();
+			System.out.println("SQL PROC _________________" + result.success);
 			// update result set and update count
 			result.rs = callStatment.getResultSet();
 		} catch (SQLException e) {

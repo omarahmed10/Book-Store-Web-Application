@@ -153,11 +153,6 @@ public class BookInfo {
 		this.category = cat;
 	}
 
-	@Override
-	public String toString() {
-		return isbn + " " + title + " " + category;
-	}
-
 	/**
 	 * @return the authors
 	 */
@@ -188,7 +183,20 @@ public class BookInfo {
 		this.publishername = publishername;
 	}
 
-	public String to_String() {
-		return "{ " + isbn + ", " + title + ", " + pubyear + ", " + publishername + ", " + authors + "}";
+	@Override
+	public boolean equals(Object obj) {
+		return ((BookInfo) obj).title.equals(this.title) && ((BookInfo) obj).isbn.equals(this.isbn);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.isbn.hashCode() + this.title.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "BookInfo [isbn=" + isbn + ", title=" + title + ", pubyear=" + pubyear + ", publishername="
+				+ publishername + ", price=" + price + ", copiesnums=" + copiesnums + ", threshold=" + threshold
+				+ ", category=" + category + ", authors=" + authors + "]";
 	}
 }

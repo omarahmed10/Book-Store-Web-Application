@@ -11,8 +11,8 @@ public interface BookDao {
 
 	public SqlResult addNewBook(BookInfo b);
 
-	public void editBook(BookInfo b);
+	public SqlResult editBook(BookInfo b);
 
-	public List<BookInfo> searchBooks(String type, List<String> args);
+	public List<BookInfo> searchBooks(String type, Object... args);
 
 }

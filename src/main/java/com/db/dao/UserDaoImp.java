@@ -24,4 +24,9 @@ public class UserDaoImp implements UserDao {
 
 	}
 
+	public UserInfo getCurrUserInfo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

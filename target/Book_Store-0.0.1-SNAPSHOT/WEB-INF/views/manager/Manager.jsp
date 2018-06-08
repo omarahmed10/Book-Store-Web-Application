@@ -119,7 +119,7 @@
 								<td>${book.threshold }</td>
 								<td><spring:url value="/manager/edit"
 										var="editBook" /> <a
-									href="${editBook }/${book }">edit</a></td>
+									href="${editBook }/${book.isbn }/${book.title }">edit</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>

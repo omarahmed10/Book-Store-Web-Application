@@ -12,4 +12,5 @@ public interface UserDao {
 
 	public void addNewUser(UserInfo user);
 
+	public UserInfo getCurrUserInfo();
 }

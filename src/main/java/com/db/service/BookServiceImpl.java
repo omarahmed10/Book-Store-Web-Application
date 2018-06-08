@@ -27,12 +27,12 @@ public class BookServiceImpl implements BookService {
 		return bookDao.addNewBook(b);
 	}
 
-	public void editBook(BookInfo b) {
-		bookDao.editBook(b);
+	public SqlResult editBook(BookInfo b) {
+		return bookDao.editBook(b);
 	}
 
-	public List<BookInfo> searchBooks(String type, List<String> args);
-		return book;
+	public List<BookInfo> searchBooks(String type, Object... args){
+		return bookDao.searchBooks(type, args);
 	}
 
 }

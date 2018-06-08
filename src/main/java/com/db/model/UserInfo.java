@@ -67,7 +67,8 @@ public class UserInfo {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return "{ " + username + " , " + firstname + " , " + lastname + " }";
+		return "UserInfo [email=" + email + ", password=" + password + ", username=" + username + ", lastname="
+				+ lastname + ", firstname=" + firstname + ", address=" + address + ", phonenumber=" + phonenumber + "]";
 	}
+
 }

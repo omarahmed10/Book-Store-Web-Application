@@ -16,15 +16,13 @@ CREATE PROCEDURE add_new_book(
     category  varchar(10)
  )
 BEGIN
-#insert ignore into Category values (
-#	Title,
-#    category);
-START TRANSACTION;
-CALL add_Author(ISBN, Title, Authors);
+
 if exists (select * from Book as B where B.ISBN = ISBN and B.Title = Title) then
-rollback;
+SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'This Book already exists.';
 end if;
-COMMIT;
+#####	Trying to insert new Publisher if not exist with null data.
+insert ignore into Publisher(PName) value (Publisher_name);
 insert into Book values (
 	ISBN,
     Title,
@@ -32,8 +30,10 @@ insert into Book values (
     Price,
     Copies_nums,
     Threshold,
-    (select PID from Publisher where Publisher_name = PName),
+    (select PID from Publisher where PName = Publisher_name ),
     category);
+#####	inserting Autthors 
+CALL add_Author(ISBN, Title, Authors);
 END$$
 DELIMITER ;
 
@@ -77,7 +77,7 @@ ELSE
 SET Str = LEFT(Remainder, Pos - 1); 
 END IF; 
 
-IF TRIM(Str) != '' THEN 
+IF TRIM(Str) != '' THEN
 insert ignore into Authors values(str, ISBN, Title);
 END IF;
 
@@ -92,9 +92,28 @@ DELIMITER ;
 drop procedure if exists modify_book;
 DELIMITER $$
 CREATE PROCEDURE modify_book(
-Book_ISBN varchar(20), Book_Title varchar(100), new_quantity int)
+	Book_ISBN varchar(20),
+	Book_Title varchar(100),
+    new_Pub_year Date,
+    new_Price int,
+	new_Threshold int,
+    new_quantity int, 
+	new_Publisher_name varchar(45),
+	new_Authors varchar(255),
+    new_category  varchar(10))
 BEGIN
-update Book set Copies_number = new_quantity where ISBN = Book_ISBN and Title = Book_Title;
+### 	deleting old data to remove Authors
+delete from Book where ISBN = Book_ISBN and Title = Book_Title;
+CALL add_new_book(
+	Book_ISBN,
+    Book_Title,
+	new_Pub_year,
+    new_Price,
+	new_Threshold,
+	new_quantity,
+	new_Publisher_name,
+	new_Authors,
+    new_category);
 END $$
 DELIMITER ;
 
@@ -113,11 +132,27 @@ DELIMITER ;
 -- -----------------------------------------------------
 -- Procedure Default Book Seacrh
 -- -----------------------------------------------------
+drop procedure if exists List_Books;
+DELIMITER $$
+CREATE Procedure List_Books ()
+BEGIN
+Select ISBN,Title,PName,Author,Publish_year,Price,Copies_number,Threshold,Category
+from (Book As B join Authors As A on B.ISBN = A.Book_ISBN and B.Title = A.Book_Title)
+	natural join Publisher;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure Default Book Seacrh
+-- -----------------------------------------------------
 drop procedure if exists Default_Book_Search;
 DELIMITER $$
 CREATE Procedure Default_Book_Search (Book_ISBN varchar(20),Book_Title varchar(100))
 BEGIN
-Select * from Book where ISBN = Book_ISBN and Title = Book_Title;
+Select ISBN,Title,PName,Author,Publish_year,Price,Copies_number,Threshold,Category
+from (Book As B join Authors As A on B.ISBN = A.Book_ISBN and B.Title = A.Book_Title)
+	natural join Publisher
+where ISBN = Book_ISBN and Title = Book_Title;
 END $$
 DELIMITER ;
 
@@ -128,7 +163,10 @@ drop procedure if exists Title_Book_Search;
 DELIMITER $$
 CREATE Procedure Title_Book_Search (Book_Title varchar(100))
 BEGIN
-Select distinct * from Book where Title = Book_Title;
+Select ISBN,Title,PName,Author,Publish_year,Price,Copies_number,Threshold,Category
+from (Book As B join Authors As A on B.ISBN = A.Book_ISBN and B.Title = A.Book_Title)
+	natural join Publisher
+where Title = Book_Title;
 END $$
 DELIMITER ;
 
@@ -140,7 +178,10 @@ drop procedure if exists Publisher_Book_Search;
 DELIMITER $$
 CREATE Procedure Publisher_Book_Search (Publisher_name varchar(45))
 BEGIN
-select * from Book where PID in (select PID from Publisher where PName = Publisher_name);
+Select ISBN,Title,PName,Author,Publish_year,Price,Copies_number,Threshold,Category
+from (Book As B join Authors As A on B.ISBN = A.Book_ISBN and B.Title = A.Book_Title)
+	natural join Publisher
+where PID in (select PID from Publisher where PName = Publisher_name);
 END $$
 DELIMITER ;
 
@@ -151,7 +192,10 @@ drop procedure if exists Category_Book_Search;
 DELIMITER $$
 CREATE Procedure Category_Book_Search (category varchar(10))
 BEGIN
-Select * from Book where Category = category;
+Select ISBN,Title,PName,Author,Publish_year,Price,Copies_number,Threshold,Category
+from (Book As B join Authors As A on B.ISBN = A.Book_ISBN and B.Title = A.Book_Title)
+	natural join Publisher
+where Category = category;
 END $$
 DELIMITER ;
 
@@ -162,7 +206,10 @@ drop procedure if exists Author_Book_Search;
 DELIMITER $$
 CREATE Procedure Author_Book_Search (Author_name varchar(45))
 BEGIN
-select * from Book join Authors on Book_ISBN = ISBN and Book_Title = Title where Author = Author_name;
+Select ISBN,Title,PName,Author,Publish_year,Price,Copies_number,Threshold,Category
+from (Book As B join Authors As A on B.ISBN = A.Book_ISBN and B.Title = A.Book_Title)
+	natural join Publisher
+where Author = Author_name;
 END $$
 DELIMITER ;
 -- -----------------------------------------------------
@@ -172,8 +219,9 @@ drop trigger if exists Book_BEFORE_UPDATE;
 DELIMITER $$
 CREATE TRIGGER Book_BEFORE_UPDATE BEFORE UPDATE ON Book FOR EACH ROW
 BEGIN
-if new.Copies_number < 0 then
-signal sqlstate '45000';
+if new.Copies_number <= 0 then
+SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'number of Copies must be > 0.';
 end if;
 END $$
 DELIMITER ;
@@ -192,6 +240,19 @@ end if;
 END$$
 DELIMITER ;
 
+-- -----------------------------------------------------
+-- Trigger after insert book
+-- -----------------------------------------------------
+drop trigger if exists Book_AFTER_INSERT;
+DELIMITER $$
+CREATE TRIGGER Book_AFTER_INSERT AFTER INSERT ON Book FOR EACH ROW
+BEGIN
+if new.Copies_number < new.Threshold then
+insert into Orders values ((new.Threshold - new.Copies_number), new.ISBN, new.Title) 
+	ON DUPLICATE KEY UPDATE Quantity = (new.Threshold - new.Copies_number);
+end if;
+END$$
+DELIMITER ;
 -- -----------------------------------------------------
 -- Trigger before Delete Orders
 -- -----------------------------------------------------
@@ -214,6 +275,10 @@ BEGIN
 if not exists (select * from Category_T where new.Category = Category) then
 SIGNAL SQLSTATE '45000' 
         SET MESSAGE_TEXT = 'Category not found';
+end if;
+if new.Copies_number <= 0 then
+SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'number of Copies must be > 0.';
 end if;
 END$$
 DELIMITER ;

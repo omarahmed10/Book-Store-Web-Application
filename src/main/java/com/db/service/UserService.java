@@ -11,5 +11,6 @@ public interface UserService {
 	public void editUser(UserInfo user);
 
 	public void addNewUser(UserInfo user);
-
+	
+	public UserInfo getCurrUserInfo();
 }

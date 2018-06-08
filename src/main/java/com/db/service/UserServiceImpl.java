@@ -29,4 +29,8 @@ public class UserServiceImpl implements UserService {
 		userDao.addNewUser(user);
 	}
 
+	public UserInfo getCurrUserInfo() {
+		return userDao.getCurrUserInfo();
+	}
+
 }
