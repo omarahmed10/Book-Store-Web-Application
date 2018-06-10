@@ -217,3 +217,47 @@ SIGNAL SQLSTATE '45000'
 end if;
 END$$
 DELIMITER ;
+-- -----------------------------------------------------
+-- Procedure total sales for books in the previous month
+-- -----------------------------------------------------
+drop procedure if exists Total_Sales_previous_month;
+DELIMITER $$
+CREATE Procedure Total_Sales_previous_month ()
+BEGIN
+	SELECT * FROM Sales WHERE Sale_Date BETWEEN (CURRENT_DATE()- INTERVAL 2 MONTH) AND CURRENT_DATE();
+END $$
+DELIMITER ;
+-- -----------------------------------------------------
+-- Procedure The top 5 customers in the last three months
+-- -----------------------------------------------------
+drop procedure if exists Total_Sales_previous_month;
+DELIMITER $$
+CREATE Procedure Total_Sales_previous_month ()
+BEGIN
+	select tab.User_Name, SUM(tab.Paid) as Total_Paid
+	FROM (
+		select Sales.*,(Book_count * Price) as Paid
+		from Sales, Book
+		where  Sales.Book_ISBN = Book.ISBN AND Sales.Book_Title = Book.Title 
+		) as tab
+	WHERE tab.Sale_Date BETWEEN (CURRENT_DATE()- INTERVAL 3 MONTH) AND CURRENT_DATE()
+	group by tab.User_name
+	order by Total_Paid DESC
+	limit 5;
+END $$
+DELIMITER ;
+-- -----------------------------------------------------
+-- Procedure The top 10 selling books for the last three months
+-- -----------------------------------------------------
+drop procedure if exists Top_10_Books;
+DELIMITER $$
+CREATE Procedure Top_10_Books ()
+BEGIN
+	SELECT Book_ISBN, Book_Title , count(*) as Total_Count 
+	from Sales 
+	WHERE Sale_Date BETWEEN (CURRENT_DATE()- INTERVAL 3 MONTH) AND CURRENT_DATE()
+	group by Book_ISBN, Book_Title
+	order by Total_Count DESC
+	LIMIT 10;
+END $$
+DELIMITER ;
