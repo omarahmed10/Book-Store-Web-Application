@@ -2,6 +2,8 @@ package com.db.model;
 
 import java.sql.Date;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 public class BookInfo {
 	/*
 	 * ISBN VARCHAR(20) NOT NULL, Title VARCHAR(100) NOT NULL, Publish_year DATE,

@@ -15,4 +15,8 @@ public interface BookDao {
 
 	public List<BookInfo> searchBooks(String type, Object... args);
 
+	public void addToCart(BookInfo b, String userName);
+
+	public List<BookInfo> getCart(String username);
+
 }

@@ -126,7 +126,7 @@ REVOKE ALL ON *.* FROM 'omar'@'localhost';
 GRANT ALL PRIVILEGES ON *.* TO 'omar'@'localhost'
         WITH GRANT OPTION;
 FLUSH PRIVILEGES;
-SHOW GRANTS FOR 'omar'@'localhost';
+SHOW GRANTS FOR 'ah'@'localhost';
 
 REVOKE ALL ON *.* FROM 'ah'@'localhost';
 
@@ -136,3 +136,6 @@ call get_User('omar');
 call List_Users();
 
 select count(*) As cnt from Orders;
+
+
+select * from Cart;

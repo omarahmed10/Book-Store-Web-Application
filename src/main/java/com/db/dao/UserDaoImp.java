@@ -98,10 +98,13 @@ public class UserDaoImp implements UserDao {
 					+ user.getPassword() + "';");
 			s.executeQuery("GRANT Update ON BookStore.Users TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
 					+ user.getPassword() + "';");
+			s.executeQuery("GRANT Update ON BookStore.Cart TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
+					+ user.getPassword() + "';");
+			s.executeQuery("GRANT SELECT ON BookStore.Cart TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
+					+ user.getPassword() + "';");
 			s.executeQuery("GRANT SELECT ON mysql.user TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
 					+ user.getPassword() + "';");
-			// GRANT EXECUTE ON PROCEDURE TestMediaControl.monthavrage TO
-			// 'jeinqa'@'localhost'
+			// GRANT EXECUTE ON PROCEDURE
 			s.executeQuery("GRANT EXECUTE ON PROCEDURE BookStore.List_Books TO '" + user.getUsername()
 					+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
 			s.executeQuery("GRANT EXECUTE ON PROCEDURE BookStore.get_User TO '" + user.getUsername()
@@ -116,6 +119,10 @@ public class UserDaoImp implements UserDao {
 					+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
 			s.executeQuery("GRANT EXECUTE ON PROCEDURE BookStore.Author_Book_Search TO '" + user.getUsername()
 					+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
+			s.executeQuery("GRANT EXECUTE ON PROCEDURE BookStore.Add_To_Cart TO '" + user.getUsername()
+			+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
+			s.executeQuery("GRANT EXECUTE ON PROCEDURE BookStore.Get_User_Cart TO '" + user.getUsername()
+			+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
 			s.execute("flush privileges;");
 		} catch (SQLException e) {
 			e.printStackTrace();

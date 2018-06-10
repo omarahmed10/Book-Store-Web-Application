@@ -34,5 +34,12 @@ public class BookServiceImpl implements BookService {
 	public List<BookInfo> searchBooks(String type, Object... args){
 		return bookDao.searchBooks(type, args);
 	}
+	
+	public void addToCart(BookInfo b, String userName) {
+		bookDao.addToCart(b,userName);
+	}
 
+	public List<BookInfo> getCart(String username) {
+		return bookDao.getCart(username);
+	}
 }

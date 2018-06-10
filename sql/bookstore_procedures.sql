@@ -90,6 +90,20 @@ END$$
 DELIMITER ;
 
 -- -----------------------------------------------------
+-- Procedure Check Book quantity
+-- -----------------------------------------------------
+drop procedure if exists Check_Book_Quantity;
+DELIMITER $$
+CREATE Procedure Check_Book_Quantity (Book_ISBN varchar(20),
+									Book_Title varchar(100),
+                                    Book_Quantity int)
+BEGIN
+select Copies_number from Book where Book_ISBN = ISBN and Book_Title = Title into @copies;
+select (@copies >= Book_Quantity) as valid;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
 -- Procedure modify existing books
 -- -----------------------------------------------------
 drop procedure if exists modify_book;
@@ -264,6 +278,100 @@ from (Book As B join Authors As A on B.ISBN = A.Book_ISBN and B.Title = A.Book_T
 where Author = Author_name;
 END $$
 DELIMITER ;
+
+
+-- -----------------------------------------------------
+-- Procedure Add to Cart
+-- -----------------------------------------------------
+drop procedure if exists Add_To_Cart;
+DELIMITER $$
+CREATE Procedure Add_To_Cart (Book_ISBN VARCHAR(20),
+    Book_Title VARCHAR(100) ,
+    User_Name VARCHAR(100) ,
+    Book_Count INT)
+BEGIN
+	insert into Cart values (Book_ISBN,
+    Book_Title ,
+    User_Name ,
+    Book_Count );
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure Add to Cart
+-- -----------------------------------------------------
+drop procedure if exists Get_User_Cart;
+DELIMITER $$
+CREATE Procedure Get_User_Cart (in_User_Name VARCHAR(100))
+BEGIN
+	select Book_ISBN,Book_Title,Book_Count  
+    from Cart
+    where User_Name = in_User_Name;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure modify existing books
+-- -----------------------------------------------------
+drop procedure if exists buy_Book;
+DELIMITER $$
+CREATE PROCEDURE buy_Book(
+	Book_ISBN varchar(20),
+	Book_Title varchar(100),
+    new_quantity int)
+BEGIN
+update Book set Copies_number = new_quantity where ISBN = Book_ISBN and Title = Book_Title;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure total sales for books in the previous month
+-- -----------------------------------------------------
+drop procedure if exists Total_Sales_previous_month;
+DELIMITER $$
+CREATE Procedure Total_Sales_previous_month ()
+BEGIN
+	SELECT * FROM Sales WHERE Sale_Date BETWEEN (CURRENT_DATE()- INTERVAL 2 MONTH) AND CURRENT_DATE();
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure The top 5 customers in the last three months
+-- -----------------------------------------------------
+drop procedure if exists Top_5_Customers;
+DELIMITER $$
+CREATE Procedure Top_5_Customers ()
+BEGIN
+	select tab.User_Name, SUM(tab.Paid) as Total_Paid
+	FROM (
+		select Sales.*,(Book_count * Price) as Paid
+		from Sales, Book
+		where  Sales.Book_ISBN = Book.ISBN AND Sales.Book_Title = Book.Title 
+		) as tab
+	WHERE tab.Sale_Date BETWEEN (CURRENT_DATE()- INTERVAL 3 MONTH) AND CURRENT_DATE()
+	group by tab.User_name
+	order by Total_Paid DESC
+	limit 5;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure The top 10 selling books for the last three months
+-- -----------------------------------------------------
+drop procedure if exists Top_10_Books;
+DELIMITER $$
+CREATE Procedure Top_10_Books ()
+BEGIN
+	SELECT Book_ISBN, Book_Title , count(*) as Total_Count 
+	from Sales 
+	WHERE Sale_Date BETWEEN (CURRENT_DATE()- INTERVAL 3 MONTH) AND CURRENT_DATE()
+	group by Book_ISBN, Book_Title
+	order by Total_Count DESC
+	LIMIT 10;
+END $$
+DELIMITER ;
+
+
 -- -----------------------------------------------------
 -- Trigger before update book
 -- -----------------------------------------------------

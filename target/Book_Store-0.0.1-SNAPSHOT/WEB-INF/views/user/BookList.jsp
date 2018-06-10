@@ -23,21 +23,20 @@
 
 <!-- Custom styles for this template -->
 
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 
 <script type="text/javascript" charset="utf8"
 	src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-	crossorigin="anonymous"></script>
 </head>
 
 <body>
 	<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
 	<span class="navbar-brand col-sm-3 col-md-2 mr-0"><spring:url
 			value="/user" var="back" /> <a class="nav-link" href="${back }">Book
-			Store</a></span> </nav>
+			Store</a></span>
 	<div class="navbar-collapse offcanvas-collapse"
 		id="navbarsExampleDefault">
 		<form class="form-inline my-2 my-lg-0" action="/user/search">
@@ -69,19 +68,10 @@
 			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
 			<div class="sidebar-sticky">
 				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link active" href="#">
-							<span data-feather="file"></span> Products <span class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="" id="shopCart">
-							<span data-feather="shopping-cart"></span> Shopping Cart <span
-							id="Cart" class="cart">0</span>
-					</a></li>
-
-					<li class="nav-item"><a class="nav-link" href="#"> <span
-							data-feather="file"></span> Last Orders
-					</a></li>
-
-
+					<li class="nav-item"><spring:url value="/user/showCart"
+							var="showCart" /><a class="nav-link" id="shopCart"
+						href="${showCart }"> <span data-feather="shopping-cart"></span>
+							Shopping Cart <span id="Cart" class="cart">${itemsInCart }</span></a></li>
 				</ul>
 
 			</div>
@@ -99,6 +89,7 @@
 							<th>Title</th>
 							<th>category</th>
 							<th>Price</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -108,6 +99,10 @@
 								<td>${book.title }</td>
 								<td>${book.category }</td>
 								<td>${book.price }</td>
+								<td><spring:url value="/user/showBookInfo" var="showBook" />
+									<a class="btn btn-secondary" role="button"
+									href="${showBook }/${book.isbn }/${book.title }">View
+										details »</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -117,86 +112,10 @@
 		</div>
 	</div>
 
-	<script>
-		var BooksToBuy = new Array();
-		BooksToBuycnt = 0;
-		function addRowHandlers() {
-
-			var table = document.getElementById("mytable");
-			var rows = table.getElementsByTagName("tr");
-			for (i = 0; i < rows.length; i++) {
-				var currentRow = table.rows[i];
-				var index = i;
-				var createClickHandler = function(row, index) {
-					return function() {
-						if (index != 0) {
-
-							var BookId = row.getElementsByTagName("td")[0];
-							var BookTitle = row.getElementsByTagName("td")[1];
-							var BookPrice = row.getElementsByTagName("td")[2];
-							var Id = BookId.innerHTML;
-							var Title = BookTitle.innerHTML;
-							var Price = BookPrice.innerHTML;
-							var test = -1;
-							for (var i = 0; i < BooksToBuycnt; i++) {
-								if (BooksToBuy[i].id === Id) {
-									test = i;
-									break;
-								}
-
-							}
-							if (test === -1) {
-								var cnt = prompt(
-										"Please enter Number of Books :", "1");
-								var patt = new RegExp("^[0-9]*$");
-								while (!patt.test(cnt)) {
-									cnt = prompt(
-											"Please enter valid Number of Books :",
-											"1");
-								}
-
-								row.style.backgroundColor = "#489bf8";
-								BooksToBuy[BooksToBuycnt] = {
-									id : Id,
-									title : Title,
-									price : Price,
-									num : cnt
-								};
-								BooksToBuycnt++;
-								document.getElementById("Cart").innerHTML = BooksToBuy.length;
-
-							} else {
-								if (index % 2 === 1)
-									row.style.backgroundColor = "#f3f3f2";
-								else
-									row.style.backgroundColor = "#ffffff";
-								BooksToBuycnt--;
-								BooksToBuy.splice(test, 1);
-								document.getElementById("Cart").innerHTML = BooksToBuy.length;
-							}
-							console.log("Data : ", BooksToBuy);
-						}
-					}
-				};
-				currentRow.onclick = createClickHandler(currentRow, index);
-
-			}
-			console.log(document.getElementById(shopCart).innerHTML);
-		}
-		$(document).ready(function() {
-			$('#mytable').DataTable();
-		});
-		window.onload = addRowHandlers();
-	</script>
-
-
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
 		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
