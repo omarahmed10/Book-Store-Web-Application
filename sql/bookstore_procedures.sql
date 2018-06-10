@@ -224,7 +224,7 @@ drop procedure if exists Total_Sales_previous_month;
 DELIMITER $$
 CREATE Procedure Total_Sales_previous_month ()
 BEGIN
-	SELECT * FROM Sales WHERE Sale_Date BETWEEN (CURRENT_DATE()- INTERVAL 2 MONTH) AND CURRENT_DATE();
+	SELECT * FROM Sales WHERE Sale_Date BETWEEN (CURRENT_DATE()- INTERVAL 1 MONTH) AND CURRENT_DATE();
 END $$
 DELIMITER ;
 -- -----------------------------------------------------
