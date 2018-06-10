@@ -1,4 +1,8 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -69,7 +73,7 @@ body {
 <body class="text-center">
 	<form class="form-signin" action="/manager/update" method="post">
 		<p>
-			<font color="red">${addingBookErrorMsg}</font>
+			<font color="red">${edittingBookErrorMsg}</font>
 		</p>
 		<h1 class="h3 mb-3 font-weight-normal">Book Informations</h1>
 		<div class="form-group">

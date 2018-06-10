@@ -1,4 +1,7 @@
-<!doctype html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -86,7 +89,8 @@ body {
 			<label for="exampleInputEmail1">User Name</label> <input type="text"
 				id="username" name="username" class="form-control"
 				value="${user.username}" readonly="readonly"> <small
-				id="emailHelp" class="form-text text-muted">You can't change the user name.</small>
+				id="emailHelp" class="form-text text-muted">You can't change
+				the user name.</small>
 
 		</div>
 		<div class="form-group">

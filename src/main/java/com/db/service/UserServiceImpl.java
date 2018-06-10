@@ -1,5 +1,6 @@
 package com.db.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,13 @@ import com.db.model.UserInfo;
 
 @Service
 public class UserServiceImpl implements UserService {
-	UserDao  userDao;
-	
+	UserDao userDao;
+
 	@Autowired
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
-	
+
 	public List<UserInfo> listUsers() {
 		return userDao.listUsers();
 	}
@@ -29,8 +30,20 @@ public class UserServiceImpl implements UserService {
 		userDao.addNewUser(user);
 	}
 
-	public UserInfo getCurrUserInfo() {
-		return userDao.getCurrUserInfo();
+	public UserInfo getCurrentUserInfo() {
+		return userDao.getCurrentUserInfo();
+	}
+
+	public void giveCustomerPrivileges(UserInfo user) {
+		userDao.giveCustomerPrivileges(user);
+	}
+
+	public void giveAdminPrivileges(UserInfo user) {
+		userDao.giveAdminPrivileges(user);
+	}
+
+	public UserInfo getUser(String userName) throws SQLException {
+		return userDao.getUser(userName);
 	}
 
 }

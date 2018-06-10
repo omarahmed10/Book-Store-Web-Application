@@ -8,7 +8,8 @@ public class UserInfo {
 	private String firstname;
 	private String address;
 	private String phonenumber;
-
+	private String role;
+	
 	public String getEmail() {
 		return email;
 	}
@@ -69,6 +70,20 @@ public class UserInfo {
 	public String toString() {
 		return "UserInfo [email=" + email + ", password=" + password + ", username=" + username + ", lastname="
 				+ lastname + ", firstname=" + firstname + ", address=" + address + ", phonenumber=" + phonenumber + "]";
+	}
+
+	/**
+	 * @return the role
+	 */
+	public String getRole() {
+		return role;
+	}
+
+	/**
+	 * @param role the role to set
+	 */
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

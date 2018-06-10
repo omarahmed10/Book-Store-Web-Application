@@ -87,7 +87,6 @@ CREATE TABLE IF NOT EXISTS Orders (
 );
 
 DROP TABLE IF EXISTS Users;
-
 CREATE TABLE IF NOT EXISTS Users (
 	User_email varchar(100),
 	User_Name varchar(100) primary key,
@@ -95,3 +94,15 @@ CREATE TABLE IF NOT EXISTS Users (
 	User_FirstName varchar(100),
 	User_address varchar(100),
 	User_phoneNumber varchar(100));
+
+DROP TABLE IF EXISTS Users_Role;
+CREATE TABLE IF NOT EXISTS Users_Role (
+	User_Name varchar(100) primary key,
+	User_Role varchar(100),
+    CONSTRAINT fk_User_Role1 FOREIGN KEY (User_Name)
+        REFERENCES Users (User_Name)
+        ON DELETE CASCADE ON UPDATE CASCADE
+    );
+
+insert into Users(User_Name) values ('root');
+insert ignore into Users_Role values ('root','MANAGER') ON DUPLICATE KEY UPDATE User_Role = 'MANAGER';

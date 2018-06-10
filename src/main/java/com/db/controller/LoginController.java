@@ -2,9 +2,9 @@ package com.db.controller;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.db.model.UserInfo;
+import com.db.service.UserService;
 
 @Controller
 @RequestMapping("/")
@@ -23,17 +24,21 @@ public class LoginController {
 
 	public static DriverManagerDataSource ds;
 	public static Connection con;
-	private UserInfo admin;
+	public static UserInfo admin;
+
+	@Autowired
+	UserService userService;
 
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public String init(RedirectAttributes redirectAttributes) {
 		System.out.println("INIT__________________________LOGIN________________________________________");
 		ds = new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://localhost:3306/BookStore");
+		ds.setUrl("jdbc:mysql://localhost:3306/BookStore?noAccessToProcedureBodies=true");
 		admin = new UserInfo();
 		admin.setUsername("root");
 		admin.setPassword("admin");
+		admin.setRole("MANAGER");
 		redirectAttributes.addFlashAttribute("errorSignIn", null);
 		redirectAttributes.addFlashAttribute("errorSignUp", null);
 		return "redirect:/login";
@@ -57,16 +62,18 @@ public class LoginController {
 	public String loginPOST(@ModelAttribute("user") UserInfo user, RedirectAttributes redirectAttributes) {
 		String response;
 		try {
-			if (user.getUsername().equals(admin.getUsername()) && user.getPassword().equals(admin.getPassword())) {
-				con = ds.getConnection(admin.getUsername(), admin.getPassword());
-				redirectAttributes.addFlashAttribute("con", con);
+			con = ds.getConnection(admin.getUsername(),admin.getPassword());
+			UserInfo loginUser = userService.getUser(user.getUsername());
+			con.close();
+			if (loginUser.getRole().equals("MANAGER")) {
+				con = ds.getConnection(user.getUsername(), user.getPassword());
 				response = "redirect:/manager";
 			} else {
 				con = ds.getConnection(user.getUsername(), user.getPassword());
-				redirectAttributes.addFlashAttribute("con", con);
 				response = "redirect:/user";
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			redirectAttributes.addFlashAttribute("errorSignIn",
 					"invalid username or password please try again or sign up.");
 			redirectAttributes.addFlashAttribute("errorSignUp", null);
@@ -90,7 +97,6 @@ public class LoginController {
 		}
 		redirectAttributes.addFlashAttribute("errorSignIn", null);
 		redirectAttributes.addFlashAttribute("errorSignUp", null);
-		/* TODO remove books in cart. */
 		return "redirect:/login";
 	}
 
@@ -100,27 +106,10 @@ public class LoginController {
 		try {
 			System.out.println("SIGNUP____________________________________" + user);
 			con = ds.getConnection(admin.getUsername(), admin.getPassword());
-			Statement s;
-			s = con.createStatement();
-			s.execute(
-					"CREATE USER '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
-			s.executeQuery("GRANT SELECT ON BookStore.Book TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
-					+ user.getPassword() + "';");
-			s.executeQuery("GRANT SELECT ON BookStore.Users TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
-					+ user.getPassword() + "';");
-			s.executeQuery("GRANT Update ON BookStore.Users TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
-					+ user.getPassword() + "';");
-			s.executeQuery("GRANT SELECT ON mysql.user TO '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '"
-					+ user.getPassword() + "';");
-			s.execute("flush privileges;");
-			s.execute("insert into Users values ('" + user.getEmail() + "','" + user.getUsername() + "','"
-					+ user.getLastname() + "','" + user.getFirstname() + "','" + user.getAddress() + "','"
-					+ user.getPhonenumber() + "');");
+			user.setRole("CUSTOMER");
+			userService.addNewUser(user);
 			con.close();
-			System.out.println("USER CREATED_____________________________________________________");
 			con = ds.getConnection(user.getUsername(), user.getPassword());
-			System.out.println("CON CREATED_______________________________________________________");
-			redirectAttributes.addFlashAttribute("con", con);
 			response = "redirect:/user";
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -59,7 +59,10 @@ DELIMITER ;
 -- -----------------------------------------------------
 drop procedure if exists add_Author;
 DELIMITER $$
-CREATE PROCEDURE add_Author(ISBN varchar(20), Title Varchar(100), Authors Varchar(255))
+CREATE PROCEDURE add_Author(
+ISBN varchar(20),
+Title Varchar(100),
+Authors Varchar(255))
 BEGIN
 DECLARE Remainder TEXT; 
 DECLARE Delimiter CHAR(1); 
@@ -130,7 +133,31 @@ END $$
 DELIMITER ;
 
 -- -----------------------------------------------------
--- Procedure Default Book Seacrh
+-- Procedure List Orders
+-- -----------------------------------------------------
+drop procedure if exists List_Orders;
+DELIMITER $$
+CREATE Procedure List_Orders ()
+BEGIN
+select * from Orders;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure get Order
+-- -----------------------------------------------------
+drop procedure if exists get_Order;
+DELIMITER $$
+CREATE Procedure get_Order (ISBN varchar(20),Title varchar(100))
+BEGIN
+select *
+from Orders 
+where Book_ISBN = ISBN and Book_Title = Title;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure List Books
 -- -----------------------------------------------------
 drop procedure if exists List_Books;
 DELIMITER $$
@@ -139,6 +166,31 @@ BEGIN
 Select ISBN,Title,PName,Author,Publish_year,Price,Copies_number,Threshold,Category
 from (Book As B join Authors As A on B.ISBN = A.Book_ISBN and B.Title = A.Book_Title)
 	natural join Publisher;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure List Users
+-- -----------------------------------------------------
+drop procedure if exists List_Users;
+DELIMITER $$
+CREATE Procedure List_Users ()
+BEGIN
+Select User_email,User_Name,User_FirstName,User_LastName,User_address,User_phoneNumber,User_Role
+from Users natural join Users_Role;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure get User
+-- -----------------------------------------------------
+drop procedure if exists get_User;
+DELIMITER $$
+CREATE Procedure get_User (userN varchar(100))
+BEGIN
+Select User_email,User_Name,User_FirstName,User_LastName,User_address,User_phoneNumber,User_Role
+from Users natural join Users_Role 
+where User_Name = userN;
 END $$
 DELIMITER ;
 
@@ -190,12 +242,12 @@ DELIMITER ;
 -- -----------------------------------------------------
 drop procedure if exists Category_Book_Search;
 DELIMITER $$
-CREATE Procedure Category_Book_Search (category varchar(10))
+CREATE Procedure Category_Book_Search (in_category varchar(10))
 BEGIN
 Select ISBN,Title,PName,Author,Publish_year,Price,Copies_number,Threshold,Category
 from (Book As B join Authors As A on B.ISBN = A.Book_ISBN and B.Title = A.Book_Title)
 	natural join Publisher
-where Category = category;
+where Category = in_category;
 END $$
 DELIMITER ;
 

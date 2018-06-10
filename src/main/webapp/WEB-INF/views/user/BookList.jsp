@@ -35,7 +35,9 @@
 
 <body>
 	<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-	<span class="navbar-brand col-sm-3 col-md-2 mr-0">Book Store</span>
+	<span class="navbar-brand col-sm-3 col-md-2 mr-0"><spring:url
+			value="/user" var="back" /> <a class="nav-link" href="${back }">Book
+			Store</a></span> </nav>
 	<div class="navbar-collapse offcanvas-collapse"
 		id="navbarsExampleDefault">
 		<form class="form-inline my-2 my-lg-0" action="/user/search">
@@ -44,6 +46,7 @@
 				<option selected>Title</option>
 				<option>Category</option>
 				<option>Author</option>
+				<option>Publisher</option>
 			</select> <input class="form-control form-control-dark mr-sm-2" type="text"
 				placeholder="Search" aria-label="Search" name="text">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -66,16 +69,13 @@
 			<nav class="col-md-2 d-none d-md-block bg-light sidebar">
 			<div class="sidebar-sticky">
 				<ul class="nav flex-column">
-					<li class="nav-item"><a class="nav-link active" href="#">
-							<span data-feather="file"></span> Products <span class="sr-only">(current)</span>
-					</a></li>
 					<li class="nav-item"><a class="nav-link" href="" id="shopCart">
 							<span data-feather="shopping-cart"></span> Shopping Cart <span
 							id="Cart" class="cart">0</span>
 					</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="#"> <span
-							data-feather="file"></span> Last Orders
+					<li class="nav-item"><a class="nav-link" href="#" > <span
+							data-feather="user"></span> Switch to Manager mode
 					</a></li>
 
 
@@ -86,7 +86,7 @@
 
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 			<h2>
-				<center>Our Books</center>
+				<center>Books</center>
 			</h2>
 			<div class="table-responsive">
 				<table class="table table-striped table-sm" id="mytable">

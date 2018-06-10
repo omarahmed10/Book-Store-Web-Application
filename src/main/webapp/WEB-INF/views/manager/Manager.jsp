@@ -35,7 +35,8 @@
 
 <body>
 	<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-	<span class="navbar-brand col-sm-3 col-md-2 mr-0">Book Store</span>
+		<span class="navbar-brand col-sm-3 col-md-2 mr-0"><spring:url value="/manager"
+				var="back" /> <a class="nav-link" href="${back }">Book Store</a></span>
 	<div class="navbar-collapse offcanvas-collapse"
 		id="navbarsExampleDefault">
 		<form class="form-inline my-2 my-lg-0" action="/manager/search">
@@ -44,6 +45,7 @@
 				<option selected>Title</option>
 				<option>Category</option>
 				<option>Author</option>
+				<option>Publisher</option>
 			</select> <input class="form-control form-control-dark mr-sm-2" type="text"
 				placeholder="Search" aria-label="Search" name="text">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -70,7 +72,7 @@
 					<li class="nav-item"><spring:url value="/manager/orders"
 							var="viewOrders" /><a class="nav-link" href="${viewOrders}"
 						id="shopCart"> <span data-feather="inbox"></span>Orders <span
-							id="Cart" class="cart">0</span>
+							id="Cart" class="cart">${orderCnt }</span>
 					</a></li>
 
 					<li class="nav-item"><spring:url value="/manager/users"
@@ -82,6 +84,11 @@
 							var="viewReports" /><a class="nav-link" href="${viewReports}">
 							<span data-feather="activity"></span> Reports
 					</a></li>
+					
+					<li class="nav-item"><spring:url value="/user"
+							var="switchToUserView" /><a class="nav-link" href="${switchToUserView}">
+							<span data-feather="user"></span> Switch to User mode
+					</a></li>
 				</ul>
 
 			</div>
@@ -89,7 +96,7 @@
 
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 			<h2>
-				<center>Our Books</center>
+				<center>Books</center>
 			</h2>
 			<div class="table-responsive">
 				<table class="table table-striped table-sm" id="mytable">

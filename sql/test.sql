@@ -4,7 +4,7 @@ SELECT user,host,authentication_string FROM mysql.user;
 
 update mysql.user set authentication_string='123' where user='ha';
 
-delete from Users where User_Name = 'Qasim';
+delete from Users where User_Name = 'omar';
 select * from Users ;
 update Users set User_LastName = 'koko', User_FirstName = 'kaka' , User_email = 'ah@ah.ah' , User_address = 'ah' where User_Name = 'ah'; 
 desc mysql.user;
@@ -120,4 +120,19 @@ call modify_book(
     2,
     'Q'	,
 	'TT,YY,uU',
-    'Science')
+    'Science');
+    
+REVOKE ALL ON *.* FROM 'omar'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'omar'@'localhost'
+        WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+SHOW GRANTS FOR 'omar'@'localhost';
+
+REVOKE ALL ON *.* FROM 'ah'@'localhost';
+
+
+call get_User('omar');
+
+call List_Users();
+
+select count(*) As cnt from Orders;

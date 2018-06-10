@@ -24,6 +24,7 @@ public class BookDaoImp implements BookDao {
 
 	public List<BookInfo> listBooks() {
 		SqlResult sq = sqlService.callProcedure(LoginController.con, "List_Books");
+		System.out.println("LIST BOOKs___________________"+sq.msg);
 		return reformateBooks(sq.rs);
 	}
 

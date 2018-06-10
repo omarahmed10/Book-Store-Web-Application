@@ -9,14 +9,9 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.db.model.BookInfo;
 import com.db.model.SearchQuery;
 import com.db.model.UserInfo;
@@ -32,14 +27,12 @@ public class Test {
 	 * editing user data
 	 * last video finished is #13 from https://www.youtube.com/watch?v=ZEz_0V8EJpM&list=PLBgMUB7xGcO31B2gBmy1igpZn6LK78-CJ&index=12
 	 * TODO
-	 * Managers
-1. Add new books {use js to ensure that copies > threshold}
-2. Modify existing books
-3. Place orders for books
-4. Confirm orders
-5. Promote registered customers to have managers credentials
+	 * ADD BACK Button Please.
+	 ******************* Managers
+5. Promote registered customers to have managers credentials {Done but user password changed or encripted}
 6. View reports on sales
-	 *	customer
+	 ******************* Customers
+0. make user can switch back to manager if role = MANAGER.
 1. Manage his shopping cart. This includes the following.
 • View the items in the cart
 • View the individual and total prices of the books in the cart

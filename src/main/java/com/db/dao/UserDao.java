@@ -1,5 +1,6 @@
 package com.db.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.db.model.UserInfo;
@@ -12,5 +13,12 @@ public interface UserDao {
 
 	public void addNewUser(UserInfo user);
 
-	public UserInfo getCurrUserInfo();
+	public UserInfo getCurrentUserInfo();
+	
+	public void giveCustomerPrivileges(UserInfo user);
+	
+	public void giveAdminPrivileges(UserInfo user);
+
+	public UserInfo getUser(String userName) throws SQLException;
+
 }
