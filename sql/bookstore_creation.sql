@@ -95,7 +95,3 @@ CREATE TABLE IF NOT EXISTS Users (
 	User_FirstName varchar(100),
 	User_address varchar(100),
 	User_phoneNumber varchar(100));
-				 
--- -----------------------------------------------------
--- Table sales
--- -----------------------------------------------------
