@@ -111,8 +111,9 @@ DROP TABLE IF EXISTS Authors ;
 CREATE TABLE IF NOT EXISTS Sales(
 	Book_ISBN VARCHAR(20) NOT NULL,
 	Book_Title VARCHAR(100) NOT NULL,
-    Sale_Date DATE NOT NULL,
-    User_Name varchar(100) NOT NULL,
+    	Sale_Date DATE NOT NULL,
+    	User_Name varchar(100) NOT NULL,
+	Book_Count INT NOT NULL,
 	PRIMARY KEY (Book_ISBN, Book_Title, Sale_Date, User_Name),
     CONSTRAINT fk_Sales_Book FOREIGN KEY (Book_ISBN , Book_Title)
         REFERENCES Book (ISBN , Title)
