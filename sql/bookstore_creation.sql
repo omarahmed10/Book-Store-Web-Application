@@ -103,6 +103,25 @@ CREATE TABLE IF NOT EXISTS Users_Role (
         REFERENCES Users (User_Name)
         ON DELETE CASCADE ON UPDATE CASCADE
     );
+-- -----------------------------------------------------
+-- Table Sales
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS Authors ;
 
+CREATE TABLE IF NOT EXISTS Sales(
+	Book_ISBN VARCHAR(20) NOT NULL,
+	Book_Title VARCHAR(100) NOT NULL,
+    	Sale_Date DATE NOT NULL,
+    	User_Name varchar(100) NOT NULL,
+	Book_Count INT NOT NULL,
+	PRIMARY KEY (Book_ISBN, Book_Title, Sale_Date, User_Name),
+    CONSTRAINT fk_Sales_Book FOREIGN KEY (Book_ISBN , Book_Title)
+        REFERENCES Book (ISBN , Title)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+        
+	 CONSTRAINT fk_Sales_Users FOREIGN KEY (User_Name)
+        REFERENCES Users (User_Name)
+        ON DELETE CASCADE ON UPDATE CASCADE
+);
 insert into Users(User_Name) values ('root');
 insert ignore into Users_Role values ('root','MANAGER') ON DUPLICATE KEY UPDATE User_Role = 'MANAGER';
