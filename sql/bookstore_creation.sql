@@ -86,10 +86,11 @@ CREATE TABLE IF NOT EXISTS Orders (
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-DROP TABLE IF EXISTS Users;
-CREATE TABLE IF NOT EXISTS Users (
+DROP TABLE Users;
+CREATE TABLE  Users (
 	User_email varchar(100),
 	User_Name varchar(100) primary key,
+    User_Password varchar(255),
 	User_LastName varchar(100),
 	User_FirstName varchar(100),
 	User_address varchar(100),
@@ -104,7 +105,7 @@ CREATE TABLE IF NOT EXISTS Users_Role (
         ON DELETE CASCADE ON UPDATE CASCADE
     );
 
-insert into Users(User_Name) values ('root');
+insert into Users(User_Name,User_Password) values ('root','admin');
 insert ignore into Users_Role values ('root','MANAGER') ON DUPLICATE KEY UPDATE User_Role = 'MANAGER';
 
 -- -----------------------------------------------------
@@ -118,9 +119,9 @@ CREATE TABLE IF NOT EXISTS Cart (
     Book_Count INT NOT NULL,
     PRIMARY KEY (Book_ISBN , Book_Title , User_Name),
     CONSTRAINT fk_Cart_Book FOREIGN KEY (Book_ISBN , Book_Title)
-        REFERENCES Book (ISBN , Title),
+        REFERENCES Book (ISBN , Title) ON DELETE CASCADE ON UPDATE CASCADE ,
     CONSTRAINT fk_Cart_Users FOREIGN KEY (User_Name)
-        REFERENCES Users (User_Name)
+        REFERENCES Users (User_Name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 -- -----------------------------------------------------
 -- Table sales
@@ -134,7 +135,7 @@ CREATE TABLE IF NOT EXISTS Sales (
     Book_Count INT NOT NULL,
     PRIMARY KEY (Book_ISBN , Book_Title , Sale_Date , User_Name),
     CONSTRAINT fk_Sales_Book FOREIGN KEY (Book_ISBN , Book_Title)
-        REFERENCES Book (ISBN , Title),
+        REFERENCES Book (ISBN , Title) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_Sales_Users FOREIGN KEY (User_Name)
-        REFERENCES Users (User_Name)
+        REFERENCES Users (User_Name) ON DELETE CASCADE ON UPDATE CASCADE
 );

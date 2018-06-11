@@ -31,15 +31,23 @@ public class BookServiceImpl implements BookService {
 		return bookDao.editBook(b);
 	}
 
-	public List<BookInfo> searchBooks(String type, Object... args){
+	public List<BookInfo> searchBooks(String type, Object... args) {
 		return bookDao.searchBooks(type, args);
 	}
-	
+
 	public void addToCart(BookInfo b, String userName) {
-		bookDao.addToCart(b,userName);
+		bookDao.addToCart(b, userName);
 	}
 
 	public List<BookInfo> getCart(String username) {
 		return bookDao.getCart(username);
+	}
+
+	public void deleteFromCart(String userName, String isbn, String title) {
+		bookDao.deleteFromCart(userName, isbn, title);
+	}
+
+	public void buyBooks(List<BookInfo> books, String userName) {
+		bookDao.buyBooks(books, userName);
 	}
 }

@@ -9,6 +9,7 @@ public class UserInfo {
 	private String address;
 	private String phonenumber;
 	private String role;
+	private int totalpaid;
 	
 	public String getEmail() {
 		return email;
@@ -84,6 +85,20 @@ public class UserInfo {
 	 */
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	/**
+	 * @return the totalpaid
+	 */
+	public int getTotalpaid() {
+		return totalpaid;
+	}
+
+	/**
+	 * @param totalpaid the totalpaid to set
+	 */
+	public void setTotalpaid(int totalpaid) {
+		this.totalpaid = totalpaid;
 	}
 
 }

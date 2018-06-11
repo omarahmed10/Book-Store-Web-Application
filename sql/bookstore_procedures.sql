@@ -202,7 +202,7 @@ drop procedure if exists get_User;
 DELIMITER $$
 CREATE Procedure get_User (userN varchar(100))
 BEGIN
-Select User_email,User_Name,User_FirstName,User_LastName,User_address,User_phoneNumber,User_Role
+Select User_email,User_Name,User_Password,User_FirstName,User_LastName,User_address,User_phoneNumber,User_Role
 from Users natural join Users_Role 
 where User_Name = userN;
 END $$
@@ -311,6 +311,43 @@ END $$
 DELIMITER ;
 
 -- -----------------------------------------------------
+-- Procedure delete element from Cart
+-- -----------------------------------------------------
+drop procedure if exists Delete_Element_Cart;
+DELIMITER $$
+CREATE Procedure Delete_Element_Cart (in_Book_ISBN VARCHAR(20),
+    in_Book_Title VARCHAR(100) ,in_User_Name VARCHAR(100))
+BEGIN
+	delete from Cart
+    where  User_Name = in_User_Name and Book_ISBN = in_Book_ISBN and Book_Title = in_Book_Title;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure delete element from Cart
+-- -----------------------------------------------------
+drop procedure if exists Delete_User_Cart;
+DELIMITER $$
+CREATE Procedure Delete_User_Cart (in_User_Name VARCHAR(100))
+BEGIN
+	delete from Cart
+    where  User_Name = in_User_Name;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Procedure Get Book quantity
+-- -----------------------------------------------------
+drop procedure if exists Get_Book_Quantity;
+DELIMITER $$
+CREATE Procedure Get_Book_Quantity (Book_ISBN varchar(20),
+									Book_Title varchar(100))
+BEGIN
+select Copies_number from Book where Book_ISBN = ISBN and Book_Title = Title;
+END $$
+DELIMITER ;
+
+-- -----------------------------------------------------
 -- Procedure modify existing books
 -- -----------------------------------------------------
 drop procedure if exists buy_Book;
@@ -318,9 +355,11 @@ DELIMITER $$
 CREATE PROCEDURE buy_Book(
 	Book_ISBN varchar(20),
 	Book_Title varchar(100),
+    User_Name varchar(100),
     new_quantity int)
 BEGIN
-update Book set Copies_number = new_quantity where ISBN = Book_ISBN and Title = Book_Title;
+update Book set Copies_number = Copies_number - new_quantity where ISBN = Book_ISBN and Title = Book_Title;
+insert into Sales values(Book_ISBN,Book_Title,CURRENT_DATE(),User_Name,new_quantity);
 END $$
 DELIMITER ;
 
@@ -379,7 +418,7 @@ drop trigger if exists Book_BEFORE_UPDATE;
 DELIMITER $$
 CREATE TRIGGER Book_BEFORE_UPDATE BEFORE UPDATE ON Book FOR EACH ROW
 BEGIN
-if new.Copies_number <= 0 then
+if new.Copies_number < 0 then
 SIGNAL SQLSTATE '45000' 
         SET MESSAGE_TEXT = 'number of Copies must be > 0.';
 end if;

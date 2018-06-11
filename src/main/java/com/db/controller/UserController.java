@@ -85,6 +85,13 @@ public class UserController {
 		return model;
 	}
 
+	@RequestMapping(value = "/removeBook/{bookIsbn}/{bookTitle}", method = RequestMethod.GET)
+	public String removeFromCart(@PathVariable Map<String, String> pathVars) {
+		bookService.deleteFromCart(userService.getCurrentUserInfo().getUsername(), pathVars.get("bookIsbn"),
+				pathVars.get("bookTitle"));
+		return "redirect:/user/showCart";
+	}
+
 	@RequestMapping(value = "/addToCart", method = RequestMethod.POST, params = { "add" })
 	public String addToCart(@ModelAttribute("book") BookInfo newBook) {
 		System.out.println(newBook);
@@ -93,7 +100,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/addToCart", method = RequestMethod.POST, params = { "cancel" })
-	public String cancelPurchase() {
+	public String cancelAdding() {
 		return "redirect:/user/list";
 	}
 
@@ -107,6 +114,7 @@ public class UserController {
 			totalPrice += e.getPrice();
 		}
 		model.addObject("totalPrice", totalPrice);
+		model.addObject("totalCnt", list.size());
 		return model;
 	}
 }

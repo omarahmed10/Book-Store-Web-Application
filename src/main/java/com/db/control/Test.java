@@ -27,7 +27,6 @@ public class Test {
 	 * editing user data
 	 * last video finished is #13 from https://www.youtube.com/watch?v=ZEz_0V8EJpM&list=PLBgMUB7xGcO31B2gBmy1igpZn6LK78-CJ&index=12
 	 * TODO
-	 * ADD BACK Button Please.
 	 ******************* Managers
 5. Promote registered customers to have managers credentials {Done but user password changed or encripted}
 6. View reports on sales

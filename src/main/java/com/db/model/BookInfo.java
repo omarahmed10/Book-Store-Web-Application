@@ -2,8 +2,6 @@ package com.db.model;
 
 import java.sql.Date;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 public class BookInfo {
 	/*
 	 * ISBN VARCHAR(20) NOT NULL, Title VARCHAR(100) NOT NULL, Publish_year DATE,
@@ -19,7 +17,9 @@ public class BookInfo {
 	private int threshold;
 	private String category;
 	private String authors;
-
+	private String descrip;
+	private int totalpurchase;
+	
 	public BookInfo() {
 		super();
 	}
@@ -200,5 +200,33 @@ public class BookInfo {
 		return "BookInfo [isbn=" + isbn + ", title=" + title + ", pubyear=" + pubyear + ", publishername="
 				+ publishername + ", price=" + price + ", copiesnums=" + copiesnums + ", threshold=" + threshold
 				+ ", category=" + category + ", authors=" + authors + "]";
+	}
+
+	/**
+	 * @return the descrip
+	 */
+	public String getDescrip() {
+		return descrip;
+	}
+
+	/**
+	 * @param descrip the descrip to set
+	 */
+	public void setDescrip(String descrip) {
+		this.descrip = descrip;
+	}
+
+	/**
+	 * @return the totalpurchase
+	 */
+	public int getTotalpurchase() {
+		return totalpurchase;
+	}
+
+	/**
+	 * @param totalpurchase the totalpurchase to set
+	 */
+	public void setTotalpurchase(int totalpurchase) {
+		this.totalpurchase = totalpurchase;
 	}
 }

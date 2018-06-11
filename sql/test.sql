@@ -10,6 +10,7 @@ update Users set User_LastName = 'koko', User_FirstName = 'kaka' , User_email = 
 desc mysql.user;
 
 delete from Book ;
+delete from Publisher ;
 select * from Book ;
 
 delete from Publisher;
@@ -126,7 +127,7 @@ REVOKE ALL ON *.* FROM 'omar'@'localhost';
 GRANT ALL PRIVILEGES ON *.* TO 'omar'@'localhost'
         WITH GRANT OPTION;
 FLUSH PRIVILEGES;
-SHOW GRANTS FOR 'ah'@'localhost';
+SHOW GRANTS FOR 'omar'@'localhost';
 
 REVOKE ALL ON *.* FROM 'ah'@'localhost';
 
@@ -137,5 +138,11 @@ call List_Users();
 
 select count(*) As cnt from Orders;
 
+call Top_5_Customers();
+call Top_10_Books();
+call Total_Sales_previous_month();
 
-select * from Cart;
+select * from Book;
+select * from Sales;
+call buy_Book(
+	'2','2',5);

@@ -1,6 +1,7 @@
 package com.db.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +19,24 @@ import com.db.model.SqlResult;
 import com.db.model.UserInfo;
 import com.db.service.BookService;
 import com.db.service.OrderService;
+import com.db.service.SalesService;
 import com.db.service.UserService;
 
 @Controller
 @RequestMapping("/manager")
 public class ManagerController {
-	
+
 	@Autowired
 	BookService bookService;
 
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	OrderService orderService;
+	
+	@Autowired
+	SalesService salesService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView init() {
@@ -134,6 +139,47 @@ public class ManagerController {
 		ModelAndView model = new ModelAndView("manager/OrderList");
 		orderService.confirmOrder(ISBN, Title);
 		model.addObject("orderList", orderService.listOrders());
+		return model;
+	}
+
+	/*
+	 ************************ Purchase Management
+	 */
+	@RequestMapping(value = "/buyBooks", method = RequestMethod.POST, params = { "continue" })
+	public String buyBooks() {
+		try {
+			UserInfo currentUsr = userService.getCurrentUserInfo();
+			if (!LoginController.con.isClosed())
+				LoginController.con.close();
+			LoginController.con = LoginController.ds.getConnection(LoginController.admin.getUsername(),
+					LoginController.admin.getPassword());
+			bookService.buyBooks(bookService.getCart(currentUsr.getUsername()), currentUsr.getUsername());
+			System.out.println("BUYBOOK____________" + userService.getCurrentUserInfo().getUsername() + currentUsr);
+			LoginController.con.close();
+			LoginController.con = LoginController.ds.getConnection(currentUsr.getUsername(), currentUsr.getPassword());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/user";
+	}
+
+	@RequestMapping(value = "/buyBooks", method = RequestMethod.POST, params = { "cancel" })
+	public String cancelPurchase() {
+		return "redirect:/user";
+	}
+	
+	/*
+	 ************************* Reports Management
+	 */
+	
+	@RequestMapping(value = "/reports", method = RequestMethod.GET)
+	public ModelAndView listreports() {
+		ModelAndView model = new ModelAndView("manager/ReportList");
+		model.addObject("salesList", salesService.totalSalesPreviousMonth());
+		model.addObject("userList", salesService.top5Customers());
+		model.addObject("bookList", salesService.top10Book());
+
 		return model;
 	}
 }

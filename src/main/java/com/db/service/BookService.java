@@ -17,4 +17,8 @@ public interface BookService {
 	public void addToCart(BookInfo b, String userName);
 
 	public List<BookInfo> getCart(String username);
+
+	public void deleteFromCart(String userName, String isbn, String title);
+	
+	public void buyBooks(List<BookInfo> books,String userName);
 }

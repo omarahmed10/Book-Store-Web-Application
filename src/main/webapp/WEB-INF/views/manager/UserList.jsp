@@ -22,6 +22,7 @@
 	crossorigin="anonymous">
 
 <!-- Custom styles for this template -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
 <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
@@ -34,8 +35,13 @@
 </head>
 
 <body>
+	<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+	<span class="navbar-brand col-sm-3 col-md-2 mr-0"><spring:url
+			value="/manager" var="back" /> <a class="nav-link" href="${back }">Book
+			Store</a></span> </nav>
 	<div class="container-fluid">
 		<div class="row">
+
 			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 			<h2>
 				<center>Orders</center>
@@ -62,8 +68,8 @@
 								<td>${user.lastname }</td>
 								<td>${user.address }</td>
 								<td>${user.phonenumber }</td>
-								<td><spring:url value="/manager/editUser" var="editUser" /> <a
-									href="${editUser }/${user.username }"> "${user.role}"</a></td>
+								<td><spring:url value="/manager/editUser" var="editUser" />
+									<a href="${editUser }/${user.username }"> "${user.role}"</a></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -78,9 +84,11 @@
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#mytable').DataTable();
+		});
+	</script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
 		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"

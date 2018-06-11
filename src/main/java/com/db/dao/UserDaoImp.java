@@ -72,8 +72,8 @@ public class UserDaoImp implements UserDao {
 					"CREATE USER '" + user.getUsername() + "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
 			s.execute("flush privileges;");
 			s.execute("insert into Users values ('" + user.getEmail() + "','" + user.getUsername() + "','"
-					+ user.getLastname() + "','" + user.getFirstname() + "','" + user.getAddress() + "','"
-					+ user.getPhonenumber() + "');");
+					+ user.getPassword() + "','" + user.getLastname() + "','" + user.getFirstname() + "','"
+					+ user.getAddress() + "','" + user.getPhonenumber() + "');");
 			if (user.getRole().equals("CUSTOMER")) {
 				giveCustomerPrivileges(user);
 				System.out.println("customer priv for ___________" + user.getUsername());
@@ -120,9 +120,11 @@ public class UserDaoImp implements UserDao {
 			s.executeQuery("GRANT EXECUTE ON PROCEDURE BookStore.Author_Book_Search TO '" + user.getUsername()
 					+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
 			s.executeQuery("GRANT EXECUTE ON PROCEDURE BookStore.Add_To_Cart TO '" + user.getUsername()
-			+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
+					+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
 			s.executeQuery("GRANT EXECUTE ON PROCEDURE BookStore.Get_User_Cart TO '" + user.getUsername()
-			+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
+					+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
+			s.executeQuery("GRANT EXECUTE ON PROCEDURE BookStore.Delete_Element_Cart TO '" + user.getUsername()
+					+ "'@'localhost' IDENTIFIED BY '" + user.getPassword() + "';");
 			s.execute("flush privileges;");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -164,17 +166,13 @@ public class UserDaoImp implements UserDao {
 		ResultSet rs = sqlService.callProcedure(LoginController.con, "get_User", userName).rs;
 		if (rs.next()) {
 			user.setEmail(rs.getString("User_email"));
+			user.setPassword(rs.getString("User_Password"));
 			user.setAddress(rs.getString("User_address"));
 			user.setFirstname(rs.getString("User_FirstName"));
 			user.setLastname(rs.getString("User_LastName"));
 			user.setPhonenumber(rs.getString("User_phoneNumber"));
 			user.setRole(rs.getString("User_Role"));
 			user.setUsername(userName);
-			rs = LoginController.con
-					.prepareStatement("select authentication_string from mysql.user where user = '" + userName + "';")
-					.executeQuery();
-			if (rs.next())
-				user.setPassword(rs.getString(1));
 		}
 		return user;
 	}

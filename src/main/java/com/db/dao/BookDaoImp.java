@@ -106,35 +106,32 @@ public class BookDaoImp implements BookDao {
 		return checked;
 	}
 
-	public boolean[] purchaseBooks(BookInfo[] books, int[] bookQuantities) throws SQLException {
-		boolean[] purchased = new boolean[books.length];
+	public void buyBooks(List<BookInfo> books, String userName) {
+		try {
+			LoginController.con.setAutoCommit(false);
+			LoginController.con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 
-		LoginController.con.setAutoCommit(false);
-		LoginController.con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+			for (int i = 0; i < books.size(); i++) {
+				String ISBN = books.get(i).getIsbn();
+				String Title = books.get(i).getTitle();
+				int bookQuantity = books.get(i).getCopiesnums();
 
-		for (int i = 0; i < books.length; i++) {
-			String ISBN = books[i].getIsbn();
-			String Title = books[i].getTitle();
-			int copiesNum = books[i].getCopiesnums();
+				SqlResult result = sqlService.callProcedure(LoginController.con, "buy_Book", ISBN, Title, userName,
+						bookQuantity);
 
-			int bookQuantity = bookQuantities[i];
-
-			SqlResult result = sqlService.callProcedure(LoginController.con, "modify_book", ISBN, Title,
-					copiesNum - bookQuantity);
-
-			if (result.msg == null)
-				purchased[i] = true;
-			else {
-				System.out.println(result.msg + " : " + " There are not enough book quantities"
-						+ " Transaction is being rolled back");
-				LoginController.con.rollback();
+				if (result.msg != null)
+					LoginController.con.rollback();
+				else
+					System.out.println("BUY ERROR_______" + result.msg);
 			}
+
+			LoginController.con.commit();
+			LoginController.con.setAutoCommit(true);
+			sqlService.callProcedure(LoginController.con, "Delete_User_Cart", userName);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 
-		LoginController.con.commit();
-		LoginController.con.setAutoCommit(true);
-
-		return purchased;
 	}
 
 	public void addToCart(BookInfo b, String userName) {
@@ -150,10 +147,16 @@ public class BookDaoImp implements BookDao {
 				BookInfo newBook = new BookInfo();
 				newBook.setIsbn(rs.getString("Book_ISBN"));
 				newBook.setTitle(rs.getString("Book_Title"));
-				newBook.setCopiesnums(rs.getInt("Book_Count"));
-				int totalPrice = searchBooks("Default", newBook.getIsbn(), newBook.getTitle()).get(0).getPrice()
-						* newBook.getCopiesnums();
-				newBook.setPrice(totalPrice);
+				BookInfo originInfo = searchBooks("Default", newBook.getIsbn(), newBook.getTitle()).get(0);
+				int availableQuantity = originInfo.getCopiesnums();
+				if (availableQuantity < rs.getInt("Book_Count")) {
+					newBook.setCopiesnums(availableQuantity);
+					newBook.setDescrip("sorry.. maximum number of copies available are " + availableQuantity);
+				} else {
+					newBook.setCopiesnums(rs.getInt("Book_Count"));
+					newBook.setDescrip("number of copies " + newBook.getCopiesnums());
+				}
+				newBook.setPrice(newBook.getCopiesnums() * originInfo.getPrice());
 				books.add(newBook);
 			}
 		} catch (SQLException e) {
@@ -161,4 +164,9 @@ public class BookDaoImp implements BookDao {
 		}
 		return books;
 	}
+
+	public void deleteFromCart(String userName, String isbn, String title) {
+		sqlService.callProcedure(LoginController.con, "Delete_Element_Cart", isbn, title, userName);
+	}
+
 }
